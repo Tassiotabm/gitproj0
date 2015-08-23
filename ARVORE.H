@@ -79,7 +79,7 @@ typedef struct tgMatriz * tppMatriz;
 *
 ***********************************************************************/
 
-    MAT_tpCondRet MAT_CriarMatriz(int n, tpMatriz * M);
+    MAT_tpCondRet MAT_CriarMatriz(int lin, int col, tppMatriz * M);
 
 
 /***********************************************************************

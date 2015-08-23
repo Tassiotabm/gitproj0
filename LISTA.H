@@ -95,6 +95,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
 
 /***********************************************************************
+*	FUNÇÃO CRIAR LISTA MODIFICADA!!!!
 *
 *  $FC Função: LIS  &Criar lista
 *
@@ -105,22 +106,20 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     Não existe identificador de tipo associado à lista.
 *
 *  $EP Parâmetros
+	  pLista		- lista passada por referência para a criação
 *     ExcluirValor  - ponteiro para a função que processa a
 *                     exclusão do valor referenciado pelo elemento
 *                     a ser excluído.
 *                     Ver descrição do módulo.
 *
 *  $FV Valor retornado
-*     Se executou corretamente retorna o ponteiro para a lista.
-*     Este ponteiro será utilizado pelas funções que manipulem esta lista.
+*     Se executou corretamente retorna LIS_CondRetOK
 *
-*     Se ocorreu algum erro, por exemplo falta de memória ou dados errados,
-*     a função retornará NULL.
-*     Não será dada mais informação quanto ao problema ocorrido.
+*     Se ocorreu algum erro, por exemplo falta de memória LIS_CondRetFaltouMemoria
 *
 ***********************************************************************/
 
-   LIS_tppLista LIS_CriarLista(
+   LIS_tpCondRet LIS_CriarLista(LIS_tppLista * pLista,
              void   ( * ExcluirValor ) ( void * pDado ) ) ;
 
 

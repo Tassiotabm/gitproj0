@@ -46,6 +46,7 @@
 
 #include    <string.h>
 #include    <stdio.h>
+#include    <malloc.h>
 
 #include    "TST_ESPC.H"
 
@@ -53,6 +54,7 @@
 #include    "lerparm.h"
 
 #include    "arvore.h"
+#include	"LISTA.H"
 
 /* Tabela dos nomes dos comandos de teste específicos */
 
@@ -65,14 +67,27 @@
 #define     IR_SUDOESTE_CMD     "=irsudoeste"
 #define     IR_OESTE_CMD        "=iroeste"
 #define		IR_NOROESTE_CMD		"=irnoroeste"
-#define		INSERIR_CHAR_CMD	"=inserirchar"
-#define		INSERIR_LISTA_CMD	"=inserirlista"
-//
-//
-// EXISTEM MAIS COMANDOS PARA MANIPULAR A LISTA!!!! (ainda a incluir no testmat)
-//
-//
-//
+#define		INS_CHAR_ANTES_CMD	"=inscharantes"
+#define		INS_CHAR_DEPOIS_CMD	"=inschardepois"
+#define		INS_LISTA_CMD		"=inserirlista"  
+#define		CRIAR_LISTA_CMD		"=criarlista"       
+#define		OBTER_VALOR_CMD		"=obtervalorelem" 
+#define		EXC_ELEM_CMD		"=excluirelem"    
+#define		IR_INICIO_CMD		"=irinicio"       
+#define		IR_FIM_CMD			"=irfinal"        
+#define		AVANCAR_ELEM_CMD	"=avancarelem"    
+
+#define DIM_VT_MATRIZ 10
+
+/* Vetor de Matrizes */
+tppMatriz vtMatriz[DIM_VT_MATRIZ] ;
+
+/* Lista auxiliar */
+LIS_tppLista	lista;
+
+/***** Protótipos das funções encapuladas no módulo *****/
+
+   static void DestruirValor( void * pValor ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -96,8 +111,8 @@
    TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
    {
 
-      ARV_tpCondRet CondRetObtido   = ARV_CondRetOK ;
-      ARV_tpCondRet CondRetEsperada = ARV_CondRetFaltouMemoria ;
+      int CondRetObtido   = MAT_CondRetOK ;
+      int CondRetEsperada = MAT_CondRetFaltouMemoria ;
                                       /* inicializa para qualquer coisa */
 
       char ValorEsperado = '?'  ;
@@ -105,27 +120,45 @@
       char ValorDado     = '\0' ;
 
       int  NumLidos = -1 ;
+	  int inxmat = -1, colunaRecebida, linhaRecebida;
 
       TST_tpCondRet Ret ;
 
       /* Testar ARV Criar árvore */
 
-         if ( strcmp( ComandoTeste , CRIAR_ARV_CMD ) == 0 )
+         if ( strcmp( ComandoTeste , CRIAR_MAT_CMD ) == 0 )
+         {
+
+            NumLidos = LER_LerParametros( "iiii" ,
+                               &inxmat, &linhaRecebida, &colunaRecebida, &CondRetEsperada ) ;
+            if ( NumLidos != 4 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = MAT_CriarMatriz(linhaRecebida, colunaRecebida, &vtMatriz[inxmat] ) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao criar a Matriz." );
+
+         } /* fim ativa: Testar MAT Criar Matriz */
+
+		  else if ( strcmp( ComandoTeste , CRIAR_LISTA_CMD ) == 0 )
          {
 
             NumLidos = LER_LerParametros( "i" ,
-                               &CondRetEsperada ) ;
+                       &CondRetEsperada) ;
+
             if ( NumLidos != 1 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_CriarArvore( ) ;
+          CondRetObtido = LIS_CriarLista(&lista, DestruirValor);
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                    "Retorno errado ao criar árvore." );
-
-         } /* fim ativa: Testar ARV Criar árvore */
+                                    "Retorno errado ao criar a Lista." );
+         } /* fim ativa: Testar CriarLista */
 
       /* Testar ARV Adicionar filho à direita */
 
@@ -266,3 +299,15 @@
 
 /********** Fim do módulo de implementação: Módulo de teste específico **********/
 
+/***********************************************************************
+*
+*  $FC Função: TLIS -Destruir valor
+*
+***********************************************************************/
+
+   void DestruirValor( void * pValor )
+   {
+
+      free( pValor ) ;
+
+   } /* Fim função: TLIS -Destruir valor */
