@@ -40,6 +40,8 @@
    #define ARVORE_EXT extern
 #endif
 
+#include "LISTA.H"
+
 typedef struct tgMatriz * tppMatriz;
 /***********************************************************************
 *
@@ -53,8 +55,8 @@ typedef struct tgMatriz * tppMatriz;
          MAT_CondRetOK = 0 ,
                /* Executou correto */
 
-         MAT_CondRetErroEstrutura = 1 ,
-               /* Estrutura da Mateiz está errada */
+         MAT_CondRetErro = 1 ,
+               /* Estrutura da Matriz está errada */
 
          MAT_CondRetMatrizNaoExiste = 2 ,
                /* Árvore não existe */
@@ -84,81 +86,97 @@ typedef struct tgMatriz * tppMatriz;
 
 /***********************************************************************
 *
-*  $FC Função: ARV Destruir árvore
+*  $FC Função: MAT Destruir Matriz
+*
+v
+*
+***********************************************************************/
+
+   void ARV_DestruirMatriz( tppMatriz matriz ) ;
+
+
+/***********************************************************************
+*
+*  $FC Função: MAT Inserir Char Antes
 *
 *  $ED Descrição da função
-*     Destrói o corpo e a cabeça da árvore, anulando a árvore corrente.
-*     Faz nada caso a árvore corrente não exista.
-*
-***********************************************************************/
-
-   void ARV_DestruirArvore( void ) ;
-
-
-/***********************************************************************
-*
-*  $FC Função: ARV Adicionar filho à esquerda
+*     Insere o char dado na lista que será ligada à célula da Matriz
 *
 *  $EP Parâmetros
-*     $P ValorParm - valor a ser inserido no novo nó.
+*     $P Valor - Char a ser inserido no novo nó.
 *
 *  $FV Valor retornado
-*     ARV_CondRetOK
-*     ARV_CondRetErroEstrutura
-*     ARV_CondRetFaltouMemoria
-*     ARV_CondRetNaoEhFolha     - caso não seja folha para a esquerda
+*     MAT_CondRetOK
+*	  MAT_CondRetErro
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_InserirEsquerda( char ValorParm ) ;
+   MAT_tpCondRet MAT_InserirCharAntes( LIS_tppLista lista, char Valor ) ;
 
 
 /***********************************************************************
 *
-*  $FC Função: ARV Adicionar filho à direita
+*  $FC Função: MAT Inserir Char Depois
+*
+*  $ED Descrição da função
+*     Insere o char dado na lista que será ligada à célula da Matriz
 *
 *  $EP Parâmetros
-*     $P ValorParm - valor a ser inserido no novo nó
+*     $P Valor - Char a ser inserido no novo nó.
 *
 *  $FV Valor retornado
-*     ARV_CondRetOK
-*     ARV_CondRetErroEstrutura
-*     ARV_CondRetFaltouMemoria
-*     ARV_CondRetNaoEhFolha     - caso não seja folha para a direita
+*     MAT_CondRetOK
+*	  MAT_CondRetErro
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_InserirDireita( char ValorParm ) ;
-
+   MAT_tpCondRet MAT_InserirCharDepois( LIS_tppLista lista, char Valor ) ;
 
 /***********************************************************************
 *
-*  $FC Função: ARV Ir para nó pai
+*  $FC Função: MAT Obter Valor
+*
+*  $ED Descrição da função
+*     Obtem o valor do char armazenado na lista
+*
+*  $EP Parâmetros
+*     $P Lista - Lista que se deseja obter o valor do  nó corrente.
 *
 *  $FV Valor retornado
-*     ARV_CondRetOK
-*     ARV_CondRetArvoreNaoExiste
-*     ARV_CondRetArvoreVazia
-*     ARV_CondRetNoEhRaiz
+*     MAT_CondRetOK
+*	  MAT_CondRetErro
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrPai( void ) ;
-
+   MAT_tpCondRet MAT_ObterValor( LIS_tppLista lista, char* valor) ;
 
 /***********************************************************************
 *
-*  $FC Função: ARV Ir para nó à esquerda
+*  $FC Função: MAT Avançar posição
+
+*  $ED Descrição da função
+*     Avança a célula corrente da matriz para a sua célula correspondente a direção dada
 *
 *  $FV Valor retornado
-*     ARV_CondRetOK
-*     ARV_CondRetArvoreNaoExiste
-*     ARV_CondRetArvoreVazia
-*     ARV_CondRetNaoPossuiFilho   - nó corrente não possui filho à esquerda
+*     MAT_CondRetOK
+*     MAT_CondRetErro - se não possui nenhuma célula na direção dada
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrNoEsquerda( void ) ;
+   MAT_tpCondRet MAT_Avancar( tppMatriz matriz, char* direcao ) ;
+
+/***********************************************************************
+*
+*  $FC Função: MAT Inserir a lista na matriz especificada, na linha e coluna especificadas
+*
+*  $FV Valor retornado
+*     MAT_CondRetOK
+*     MAT_CondRetMatrizNaoExiste
+*	  MAT_CondRetErro
+*
+***********************************************************************/
+
+   MAT_tpCondRet MAT_InserirLista( tppMatriz matriz, int linha, int coluna ) ;
 
 
 /***********************************************************************

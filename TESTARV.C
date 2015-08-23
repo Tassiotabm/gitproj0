@@ -58,15 +58,8 @@
 
 /* Tabela dos nomes dos comandos de teste específicos */
 
-#define     CRIAR_MAT_CMD       "=criar"
-#define     IR_NORTE_CMD        "=irnorte"
-#define     IR_NOROESTE_CMD     "=irnoroeste"
-#define     IR_LESTE_CMD        "=irleste"
-#define     IR_SUDESTE          "=irsudeste"
-#define     IR_SUL_CMD          "=irsul"
-#define     IR_SUDOESTE_CMD     "=irsudoeste"
-#define     IR_OESTE_CMD        "=iroeste"
-#define		IR_NOROESTE_CMD		"=irnoroeste"
+#define     CRIAR_MAT_CMD       "=criarmatriz"
+#define     AVANCAR_CMD         "=avancar"
 #define		INS_CHAR_ANTES_CMD	"=inscharantes"
 #define		INS_CHAR_DEPOIS_CMD	"=inschardepois"
 #define		INS_LISTA_CMD		"=inserirlista"  
@@ -78,6 +71,7 @@
 #define		AVANCAR_ELEM_CMD	"=avancarelem"    
 
 #define DIM_VT_MATRIZ 10
+#define DIM_VALOR     100
 
 /* Vetor de Matrizes */
 tppMatriz vtMatriz[DIM_VT_MATRIZ] ;
@@ -118,6 +112,9 @@ LIS_tppLista	lista;
       char ValorEsperado = '?'  ;
       char ValorObtido   = '!'  ;
       char ValorDado     = '\0' ;
+	  char   StringDado[ DIM_VALOR ] ;
+	  char * pDado;
+	  char charDado, charRecebido ;
 
       int  NumLidos = -1 ;
 	  int inxmat = -1, colunaRecebida, linhaRecebida;
@@ -143,6 +140,8 @@ LIS_tppLista	lista;
 
          } /* fim ativa: Testar MAT Criar Matriz */
 
+		  /* Testar  LIS Criar Lista  */
+
 		  else if ( strcmp( ComandoTeste , CRIAR_LISTA_CMD ) == 0 )
          {
 
@@ -158,11 +157,43 @@ LIS_tppLista	lista;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao criar a Lista." );
-         } /* fim ativa: Testar CriarLista */
+         } /* fim ativa: Testar Criar Lista */
 
-      /* Testar ARV Adicionar filho à direita */
+      /* Testar  MAT Avancar célula da matriz  */
 
-         else if ( strcmp( ComandoTeste , INS_DIR_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , AVANCAR_CMD  ) == 0 )
+         {
+
+            NumLidos = LER_LerParametros( "sii" ,
+                               StringDado , &inxmat, &CondRetEsperada ) ;
+            if ( NumLidos != 3 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+		    pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
+            if ( pDado == NULL )
+            {
+               return TST_CondRetMemoria ;
+            } /* if */
+
+            strcpy( pDado , StringDado ) ;
+
+            CondRetObtido = MAT_Avancar( vtMatriz[inxmat], pDado ) ;
+
+			if ( CondRetObtido != MAT_CondRetOK )
+            {
+               free( pDado ) ;
+            }
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao avancar nesta direcao da matriz" );
+
+         } /* fim ativa: Testar MAT Avancar célula da matriz */
+
+      /* Testar MAT Inserir Char antes do corrente */
+
+         else if ( strcmp( ComandoTeste , INS_CHAR_ANTES_CMD ) == 0 )
          {
 
             NumLidos = LER_LerParametros( "ci" ,
@@ -172,16 +203,14 @@ LIS_tppLista	lista;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_InserirDireita( ValorDado ) ;
+            CondRetObtido = MAT_InserirCharAntes(lista, ValorDado) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                    "Retorno errado inserir àa direita." );
+                                    "Retorno errado ao inserir char antes do corrente" );
 
-         } /* fim ativa: Testar ARV Adicionar filho à direita */
+         } /* fim ativa: Testar MAT Inserir Char Depois do corrente */
 
-      /* Testar ARV Adicionar filho à esquerda */
-
-         else if ( strcmp( ComandoTeste , INS_ESQ_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , INS_CHAR_DEPOIS_CMD ) == 0 )
          {
 
             NumLidos = LER_LerParametros( "ci" ,
@@ -191,31 +220,52 @@ LIS_tppLista	lista;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_InserirEsquerda( ValorDado ) ;
+            CondRetObtido = MAT_InserirCharDepois(lista, ValorDado) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                    "Retorno errado ao inserir à esquerda." );
+                                    "Retorno errado ao inserir char depois do corrente" );
 
-         } /* fim ativa: Testar ARV Adicionar filho à esquerda */
+         } /* fim ativa: Testar MAT Inserir Char Depois do corrente */
 
-      /* Testar ARV Ir para nó pai */
+      /* Testar MAT Inserir lista na Matriz */
 
-         else if ( strcmp( ComandoTeste , IR_PAI_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , INS_LISTA_CMD ) == 0 )
          {
 
-            NumLidos = LER_LerParametros( "i" ,
-                               &CondRetEsperada ) ;
-            if ( NumLidos != 1 )
+            NumLidos = LER_LerParametros( "iiii" ,
+                               &inxmat, &linhaRecebida, &colunaRecebida, &CondRetEsperada ) ;
+            if ( NumLidos != 4 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_IrPai( ) ;
+            CondRetObtido =  MAT_InserirLista(vtMatriz[inxmat], linhaRecebida, colunaRecebida) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                    "Retorno errado ao ir para pai." );
+                                    "Retorno errado ao inserir a lista na matriz" );
 
-         } /* fim ativa: Testar ARV Ir para nó pai */
+         } /* fim ativa: Testar MAT Inserir lista na matriz*/
+
+      /* Testar obter valor do elemento corrente */
+
+         else if ( strcmp( ComandoTeste , OBTER_VALOR_CMD ) == 0 )
+         {
+
+            NumLidos = LER_LerParametros( "ci" ,
+								&charDado , &CondRetEsperada) ;
+
+            if ( NumLidos != 2 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = MAT_ObterValor( lista, &charRecebido ) ;
+
+
+            return TST_CompararChar( charDado , charRecebido ,
+                         "Valor do elemento errado, diferente do esperado" ) ;
+
+         } /* fim ativa: Testar obter valor do elemento corrente */
 
       /* Testar ARV Ir para nó à esquerda */
 
