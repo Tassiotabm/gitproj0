@@ -1,21 +1,22 @@
-#if ! defined( ARVORE_ )
-#define ARVORE_
+#if ! defined( MATRIZ_ )
+#define MATRIZ_
 /***************************************************************************
 *
 *  $MCD Módulo de definição: Módulo árvore
 *
-*  Arquivo gerado:              ARVORE.H
-*  Letras identificadoras:      ARV
+*  Arquivo gerado:              MATRIZ.H
+*  Letras identificadoras:      MAT
 *
 *  Nome da base de software:    Exemplo de teste automatizado
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
 *
 *  Projeto: Disciplinas INF 1628 / 1301
 *  Gestor:  DI/PUC-Rio
 *  Autores: avs - Arndt von Staa
+*			fvc - Felipe Vieira Cortes
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*		4.00   fvc   23/08/2015 Mudança no módulo para operar com matrizes
 *       3.00   avs   28/02/2003 Uniformização da interface das funções e
 *                               de todas as condições de retorno.
 *       2.00   avs   03/08/2002 Eliminação de código duplicado, reestruturação
@@ -23,21 +24,16 @@
 *
 *  $ED Descrição do módulo
 *     Este módulo implementa um conjunto simples de funções para criar e
-*     explorar árvores binárias.
-*     A árvore possui uma cabeça que contém uma referência para a raíz da
-*     árvore e outra para um nó corrente da árvore.
-*     A cada momento o módulo admite no máximo uma única árvore.
-*     Ao iniciar a execução do programa não existe árvore.
-*     A árvore poderá estar vazia. Neste caso a raiz e o nó corrente
-*     serão nulos, embora a cabeça esteja definida.
-*     O nó corrente será nulo se e somente se a árvore estiver vazia.
+*     explorar Matrizes que armazenam listas duplamente encadeadas
+*     A Matriz possui uma cabeça que contém uma referência para a célula 1x1 da
+*     matriz e outra para uma célula corrente da matriz.
 *
 ***************************************************************************/
  
-#if defined( ARVORE_OWN )
-   #define ARVORE_EXT
+#if defined( MATRIZ_OWN )
+   #define MATRIZ_EXT
 #else
-   #define ARVORE_EXT extern
+   #define MATRIZ_EXT extern
 #endif
 
 #include "LISTA.H"
@@ -275,7 +271,7 @@ typedef struct tgMatriz * tppMatriz;
 
    MAT_tpCondRet MAT_ExcluirElemento( LIS_tppLista pLista ) ;
 
-#undef ARVORE_EXT
+#undef MATRIZ_EXT
 
 /********** Fim do módulo de definição: Módulo Matriz **********/
 
