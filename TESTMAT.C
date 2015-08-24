@@ -1,46 +1,49 @@
 /***************************************************************************
 *  $MCI Módulo de implementação: Módulo de teste específico
+
+*	Módulo modificado para operar matrizes que armazenam listas!
 *
-*  Arquivo gerado:              TESTARV.C
-*  Letras identificadoras:      TARV
+*  Arquivo gerado:              TESTMAT.C
+*  Letras identificadoras:      TMAT
 *
 *  Nome da base de software:    Exemplo de teste automatizado
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
 *
 *  Projeto: Disciplinas INF 1628 / 1301
 *  Gestor:  DI/PUC-Rio
 *  Autores: avs - Arndt von Staa
+			fvc	- Felipe Vieira Cortes
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+		4.00   fvc	 23/08/2015 Módulo modificado para operar matrizes
 *       3.00   avs   28/02/2003 Uniformização da interface das funções e
 *                               de todas as condições de retorno.
 *       2.00   avs   03/08/2002 Eliminação de código duplicado, reestruturação
 *       1.00   avs   15/08/2001 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Este mÇodulo contém as funções específicas para o teste do
-*     módulo árvore. Ilustra como redigir um interpretador de comandos
+*     Este módulo contém as funções específicas para o teste do
+*     módulo Matriz. Ilustra como redigir um interpretador de comandos
 *     de teste específicos utilizando o arcabouço de teste para C.
 *
 *  $EIU Interface com o usuário pessoa
-*     Comandos de teste específicos para testar o módulo árvore:
+*     Comandos de teste específicos para testar o módulo Matriz:
 *
-*     =criar        - chama a função ARV_CriarArvore( )
-*     =insdir <Char>
-*                   - chama a função ARV_InserirDireita( <Char> )
-*                     Obs. notação: <Char>  é o valor do parâmetro
-*                     que se encontra no comando de teste.
-*
-*     "=insesq" <Char>
-*                   - chama a função ARV_InserirEsquerda( <Char> )
-*     "=irpai"      - chama a função ARV_IrPai( )
-*     "=iresq"      - chama a função ARV_IrEsquerda( )
-*     "=irdir"      - chama a função ARV_IrDireita( )
-*     "=obter" <Char>
-*                   - chama a função ARV_ObterValorCorr( ) e compara
-*                     o valor retornado com o valor <Char>
-*     "=destroi"    - chama a função ARV_DestruirArvore( )
+*     =criarmatriz		<inxmat>	<linha>		<coluna>	<CondRet> - Chama a função MAT_CriarMatriz( inha, coluna, vtMatriz[inxmat])
+*	  =criarlista		<CondRet>									  - Chama a função MAT_CriarLista( lista )
+*     =avancar			<Direção>	<inxmat>	<CondRet>			  - Chama a função MAT_Avancar(vtMatriz[inxmat], direcao )
+*																		e avança a célula corrente da matriz de acordo com a direção dada.
+																		as direções são: norte, nordeste, leste, sudeste, sul, sudoeste, oeste e noroeste
+*     =inscharantes"	<Char>		<CondRet>						  - Chama a função MAT_InserirCharAntes( lista ) e insere o char na posição posterior ao corrente
+*     =inschardepois"	<Char>		<CondRet>						  - Chama a função MAT_InserirCharDepois( lista ) e insere o char na posição anterior ao corrente
+*     "=inslista"		<inxmat>	<linha>		<coluna>	<CondRet> - chama a função MAT_InserirLista(vtMatriz[inxmat], linha, coluna )
+																		e insere a lista na posição linhaXcoluna da matriz
+*     "=excluirelem"    <CondRet>									  - Chama a função MAT_ExcluirElemento( lista ) e exclui o elemento corrente da lista
+*     "=irinicio"		<CondRet>									  - chama a função MAT_IrInicio( lista )
+*     "=irfinal"		<CondRet>									  - chama a função MAT_IrIFinal( lista )
+*     "=obtervalorelem" <Char>		<CondRet>						  - Chama a função  MAT_ObterValor( lista, charRecebido )
+																		e compara o charRecebido com o valor <Char>
+*     "=avancarelem"	<numElem>	<CondRet>					 	  - chama a função MAT_AvancarElementoCorrente( lista, numElem )
 *
 ***************************************************************************/
 
@@ -53,7 +56,7 @@
 #include    "generico.h"
 #include    "lerparm.h"
 
-#include    "arvore.h"
+#include    "matriz.h"
 #include	"LISTA.H"
 
 /* Tabela dos nomes dos comandos de teste específicos */
@@ -114,10 +117,10 @@ LIS_tppLista	lista;
       char ValorDado     = '\0' ;
 	  char   StringDado[ DIM_VALOR ] ;
 	  char * pDado;
-	  char charDado, charRecebido ;
 
       int  NumLidos = -1 ;
 	  int inxmat = -1, colunaRecebida, linhaRecebida;
+	  int numElem;
 
       TST_tpCondRet Ret ;
 
@@ -153,7 +156,7 @@ LIS_tppLista	lista;
                return TST_CondRetParm ;
             } /* if */
 
-          CondRetObtido = LIS_CriarLista(&lista, DestruirValor);
+          CondRetObtido =  MAT_CriarLista(&lista);
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao criar a Lista." );
@@ -252,100 +255,108 @@ LIS_tppLista	lista;
          {
 
             NumLidos = LER_LerParametros( "ci" ,
-								&charDado , &CondRetEsperada) ;
+								&ValorDado , &CondRetEsperada) ;
 
             if ( NumLidos != 2 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = MAT_ObterValor( lista, &charRecebido ) ;
+            CondRetObtido = MAT_ObterValor( lista, &ValorObtido ) ;
 
 
-            return TST_CompararChar( charDado , charRecebido ,
+            Ret = TST_CompararChar( ValorDado , ValorObtido ,
                          "Valor do elemento errado, diferente do esperado" ) ;
 
-         } /* fim ativa: Testar obter valor do elemento corrente */
-
-      /* Testar ARV Ir para nó à esquerda */
-
-         else if ( strcmp( ComandoTeste , IR_ESQ_CMD ) == 0 )
-         {
-
-            NumLidos = LER_LerParametros( "i" ,
-                               &CondRetEsperada ) ;
-            if ( NumLidos != 1 )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            CondRetObtido = ARV_IrNoEsquerda( ) ;
-
-            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                    "Retorno errado ao ir para esquerda." );
-
-         } /* fim ativa: Testar ARV Ir para nó à esquerda */
-
-      /* Testar ARV Ir para nó à direita */
-
-         else if ( strcmp( ComandoTeste , IR_DIR_CMD ) == 0 )
-         {
-
-            NumLidos = LER_LerParametros( "i" ,
-                               &CondRetEsperada ) ;
-            if ( NumLidos != 1 )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            CondRetObtido = ARV_IrNoDireita( ) ;
-
-            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                    "Retorno errado ao ir para direita." );
-
-         } /* fim ativa: Testar ARV Ir para nó à direita */
-
-      /* Testar ARV Obter valor corrente */
-
-         else if ( strcmp( ComandoTeste , OBTER_VAL_CMD ) == 0 )
-         {
-
-            NumLidos = LER_LerParametros( "ci" ,
-                               &ValorEsperado , &CondRetEsperada ) ;
-            if ( NumLidos != 2 )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            CondRetObtido = ARV_ObterValorCorr( &ValorObtido ) ;
-
-            Ret = TST_CompararInt( CondRetEsperada , CondRetObtido ,
-                                   "Retorno errado ao obter valor corrente." );
-
-            if ( Ret != TST_CondRetOK )
+			if ( Ret != TST_CondRetOK )
             {
                return Ret ;
             } /* if */
 
-            return TST_CompararChar( ValorEsperado , ValorObtido ,
-                                     "Conteúdo do nó está errado." ) ;
+			return TST_CompararInt(CondRetObtido, CondRetEsperada, "Retorno errado ao obter valor do elemento");
 
-         } /* fim ativa: Testar ARV Obter valor corrente */
 
-      /* Testar ARV Destruir árvore */
+         } /* fim ativa: Testar obter valor do elemento corrente */
 
-         else if ( strcmp( ComandoTeste , DESTROI_CMD ) == 0 )
+      /* Testar MAT Ir para nó origem */
+
+         else if ( strcmp( ComandoTeste , IR_INICIO_CMD ) == 0 )
          {
 
-            ARV_DestruirArvore( ) ;
+            NumLidos = LER_LerParametros( "i" ,
+                               &CondRetEsperada ) ;
+            if ( NumLidos != 1 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
 
-            return TST_CondRetOK ;
+            CondRetObtido = MAT_IrInicio( lista ) ;
 
-         } /* fim ativa: Testar ARV Destruir árvore */
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao ir para o inicio da lista" );
+
+         } /* fim ativa: Testar MAT Ir para nó origem */
+
+      /* Testar MAT Ir para nó final */
+
+         else if ( strcmp( ComandoTeste , IR_FIM_CMD ) == 0 )
+         {
+
+            NumLidos = LER_LerParametros( "i" ,
+                               &CondRetEsperada ) ;
+            if ( NumLidos != 1 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = MAT_IrFinal( lista ) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao ir para o fim da lista." );
+
+         } /* fim ativa: Testar MAT Ir para nó final */
+
+      /* Testar MAT Avançar elemento corrente */
+
+         else if ( strcmp( ComandoTeste , AVANCAR_ELEM_CMD ) == 0 )
+         {
+
+            NumLidos = LER_LerParametros( "ii" ,
+                               &numElem , &CondRetEsperada ) ;
+            if ( NumLidos != 2 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = MAT_AvancarElementoCorrente( lista, numElem ) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                   "Retorno errado ao avancar o elemento corrente da lista." );
+
+         } /* fim ativa: Testar MAT Avançar elemento corrente */
+
+      /* Testar MAT Excluir elemento */
+
+         else if ( strcmp( ComandoTeste , EXC_ELEM_CMD ) == 0 )
+         {
+
+            NumLidos = LER_LerParametros( "i" ,
+									&CondRetEsperada ) ;
+            if ( NumLidos != 1 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido = MAT_ExcluirElemento( lista ) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                   "Retorno errado ao excluir o elemento da lista." );
+
+         } /* fim ativa: Testar MAT Excluir elemento */
 
       return TST_CondRetNaoConhec ;
 
-   } /* Fim função: TARV Efetuar operações de teste específicas para árvore */
+   } /* Fim função: TMAT Efetuar operações de teste específicas para árvore */
 
 /********** Fim do módulo de implementação: Módulo de teste específico **********/
 

@@ -69,26 +69,39 @@ typedef struct tgMatriz * tppMatriz;
 
 /***********************************************************************
 *
-*  $FC Função: ARV Criar árvore
+*  $FC Função: MAT Criar Matriz
 *
 *  $ED Descrição da função
-*     Cria uma nova árvore vazia.
-*     Caso já exista uma árvore, esta será destruída.
+*     Cria uma nova matriz vazia.
 *
 *  $FV Valor retornado
-*     ARV_CondRetOK
-*     ARV_CondRetFaltouMemoria
+*     MAT_CondRetOK
+*     MAT_CondRetFaltouMemoria
 *
 ***********************************************************************/
 
     MAT_tpCondRet MAT_CriarMatriz(int lin, int col, tppMatriz * M);
+
+/***********************************************************************
+*
+*  $FC Função: MAT Criar Lista
+*
+*  $ED Descrição da função
+*     Cria uma nova lista que será armazenada na matriz
+*
+*  $FV Valor retornado
+*     MAT_CondRetOK
+*     MAT_CondRetFaltouMemoria
+*
+***********************************************************************/
+
+    MAT_tpCondRet MAT_CriarLista(LIS_tppLista * pLista);
 
 
 /***********************************************************************
 *
 *  $FC Função: MAT Destruir Matriz
 *
-v
 *
 ***********************************************************************/
 
@@ -137,10 +150,11 @@ v
 *  $FC Função: MAT Obter Valor
 *
 *  $ED Descrição da função
-*     Obtem o valor do char armazenado na lista
+*     Obtem o valor do char armazenado no nó corrente da lista
 *
 *  $EP Parâmetros
-*     $P Lista - Lista que se deseja obter o valor do  nó corrente.
+*     $P Lista - Lista que se deseja obter o valor do nó corrente.
+		 Valor - Variável char passada por referência que receberá o valor do corrente
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
@@ -181,39 +195,89 @@ v
 
 /***********************************************************************
 *
-*  $FC Função: ARV Ir para nó à direita
+*  $FC Função: MAT Ir para o final da lista
+*
+*  $ED Descrição da função
+*     Faz o nó corrente da lista do módulo matriz apontar para o final
+*
+*  $EP Parâmetros
+*     $P lista - A lista que se deseja mduar o nó corrente
 *
 *  $FV Valor retornado
-*     ARV_CondRetOK
-*     ARV_CondRetArvoreNaoExiste
-*     ARV_CondRetArvoreVazia
-*     ARV_CondRetNaoPossuiFilho   - nó corrente não possui filho à direita
+*     MAT_CondRetOK
+*	  MAT_CondRetErro
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrNoDireita( void ) ;
-
+   MAT_tpCondRet MAT_IrFinal( LIS_tppLista lista ) ;
 
 /***********************************************************************
 *
-*  $FC Função: ARV Obter valor corrente
+*  $FC Função: MAT Ir Inicio
+*
+*  $ED Descrição da função
+*      Faz o nó corrente da lista do módulo matriz apontar para o o nó de origem
 *
 *  $EP Parâmetros
-*     $P ValorParm - é o parâmetro que receberá o valor contido no nó.
-*                    Este parâmetro é passado por referência.
+*     $P lista - A lista que se deseja mudar o nó corrente
 *
 *  $FV Valor retornado
-*     ARV_CondRetOK
-*     ARV_CondRetArvoreNaoExiste
-*     ARV_CondRetArvoreVazia
+*     MAT_CondRetOK
+*	  MAT_CondRetErro
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_ObterValorCorr( char * ValorParm ) ;
+   MAT_tpCondRet MAT_IrInicio( LIS_tppLista lista ) ;
+
+/***********************************************************************
+*
+*  $FC Função: MAT  Avançar elemento
+*
+*  $ED Descrição da função
+*     Avança o elemento corrente numElem elementos na lista
+*     Se numElem for positivo avança em direção ao final
+*     Se numElem for negativo avança em direção ao início
+*     numElem pode ser maior do que o númro de elementos existentes na
+*               direção desejada
+*     Se numElem for zero somente verifica se a lista está vazia
+*
+*  $EP Parâmetros
+*     pLista  - ponteiro para a lista a ser manipulada
+*     numElem - o número de elementos a andar
+*
+*  $FV Valor retornado
+*     CondRetOK         - se numElem elementos tiverem sido andados
+*     CondRetErro		- se numElem for maior que o número de vezes que se pode andar
+*
+***********************************************************************/
+
+   MAT_tpCondRet MAT_AvancarElementoCorrente( LIS_tppLista pLista ,
+                                              int numElem );
+
+/***********************************************************************
+*
+*  $FC Função: MAT  &Excluir elemento
+*
+*  $ED Descrição da função
+*     Exclui o elemento corrente da lista dada.
+*     Se existir o elemento aa esquerda do corrente será o novo corrente.
+*     Se não existir e existir o elemento à direita, este se tornará corrente.
+*     Se este também não existir a lista tornou-se vazia.
+*
+*  $EP Parâmetros
+*     pLista    - ponteiro para a lista na qual deve excluir.
+*
+*  $FV Valor retornado
+*     MAT_CondRetOK
+*     MAT_CondRetErro
+*
+***********************************************************************/
+
+   MAT_tpCondRet MAT_ExcluirElemento( LIS_tppLista pLista ) ;
 
 #undef ARVORE_EXT
 
-/********** Fim do módulo de definição: Módulo árvore **********/
+/********** Fim do módulo de definição: Módulo Matriz **********/
 
 #else
 #endif

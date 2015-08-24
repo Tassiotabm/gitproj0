@@ -25,7 +25,7 @@
 #include   "LISTA.H"
 
 #define ARVORE_OWNq
-#include "ARVORE.H"
+#include "MATRIZ.H"
 #undef ARVORE_OWN
 
 /***********************************************************************
@@ -219,7 +219,7 @@
 
    void MAT_DestruirMatriz( tppMatriz M )
    {
-	   MAT_LiberaMatriz(M.Matriz);
+	   MAT_LiberaMatriz(M);
 	   free(&M);
 
    } /* Fim função: ARV Destruir Matriz */

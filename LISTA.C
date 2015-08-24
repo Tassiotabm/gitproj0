@@ -88,27 +88,29 @@
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
+
 /***************************************************************************
 *
 *  Função: LIS  &Criar lista
 *  ****/
 
-   LIS_tpCondRet LIS_CriarLista(LIS_tppLista * pLista,
+   LIS_tppLista LIS_CriarLista(
              void   ( * ExcluirValor ) ( void * pDado ) )
    {
 
+      LIS_tpLista * pLista = NULL ;
 
-     *pLista = ( LIS_tpLista * ) malloc( sizeof( LIS_tpLista )) ;
+      pLista = ( LIS_tpLista * ) malloc( sizeof( LIS_tpLista )) ;
       if ( pLista == NULL )
       {
-         return LIS_CondRetFaltouMemoria ;
+         return NULL ;
       } /* if */
 
-      LimparCabeca( *pLista ) ;
+      LimparCabeca( pLista ) ;
 
-      (*pLista)->ExcluirValor = ExcluirValor ;
+      pLista->ExcluirValor = ExcluirValor ;
 
-      return LIS_CondRetOK ;
+      return pLista ;
 
    } /* Fim função: LIS  &Criar lista */
 
