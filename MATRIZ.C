@@ -1,11 +1,10 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: Módulo árvore
+*  $MCI Módulo de implementação: Módulo Matriz
 *
-*  Arquivo gerado:              ARVORE.C
-*  Letras identificadoras:      ARV
+*  Arquivo gerado:              MATRIZ.C
+*  Letras identificadoras:      MAT
 *
 *  Nome da base de software:    Exemplo de teste automatizado
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
 *
 *  Projeto: Disciplinas INF 1628 / 1301
 *  Gestor:  DI/PUC-Rio
@@ -13,6 +12,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+		4.00					Mudança no módulo para operar matrizes
 *       3.00   avs   28/02/2003 Uniformização da interface das funções e
 *                               de todas as condições de retorno.
 *       2.00   avs   03/08/2002 Eliminação de código duplicado, reestruturação
@@ -24,9 +24,9 @@
 #include   <stdio.h>
 #include   "LISTA.H"
 
-#define ARVORE_OWNq
+#define MATRIZ_OWN
 #include "MATRIZ.H"
-#undef ARVORE_OWN
+#undef MATRIZ_OWN
 
 /***********************************************************************
 *
