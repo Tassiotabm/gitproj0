@@ -281,7 +281,13 @@
 
    MAT_tpCondRet MAT_Avancar( tppMatriz matriz, char* direcao )
    {
-	   /* fazer um switch case */
+	   /* fazer um switch case
+			case (strcmp("Norte", direcao))
+				matriz->corrente->origem = matriz->corrente->N
+				...
+				...
+				...
+		*/
 	   return MAT_CondRetOK;
    }
 
