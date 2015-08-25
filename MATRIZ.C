@@ -38,85 +38,79 @@
 *
 ***********************************************************************/
 
-   typedef struct tgNoMatriz {
+   typedef struct tgCelulaMatriz {
 
-	     LIS_tppLista LIS ;
+	     LIS_tppLista lista ;
                /* Nó da lista da Matriz */
 
-         struct tgNoMatriz * N ;
-               /* Ponteiro para o nó localizado a 0 graus do nó atual
+         struct tgCelulaMatriz * N ;
+               /* Ponteiro para a célula localizado ao Norte  da célula atual
                *
                *$EED Assertivas estruturais
-               *   É NULL sse o nó está localizado na última coluna da matriz*/
+               *   É NULL sse a célula está localizado na última coluna da matriz*/
 
-         struct tgNoMatriz * NE ;
-               /* Ponteiro para o nó localizado a 45 graus do nó atual
+         struct tgCelulaMatriz * NE ;
+               /* Ponteiro para a célula localizado a Nordeste da célula atual
                *
                *$EED Assertivas estruturais
-               *	É NULL sse o nó está localizado na extremo canto superior direito da matriz*/
+               *	É NULL sse a célula está localizado na extremo canto superior direito da matriz*/
 
-         struct tgNoMatriz * E ;
-				/* Ponteiro para o nó localizado a 90 graus do nó atual
-
-               *$EED Assertivas estruturais
-               *   É NULL sse o nó está localizado na primeira linha da matriz */
-
-		 struct tgNoMatriz * SE ;
-				/* Ponteiro para o nó localizado a 135 graus do nó atual
+         struct tgCelulaMatriz * E ;
+				/* Ponteiro para a célula localizado a 9o Leste da célula atual
 
                *$EED Assertivas estruturais
-               *   É NULL sse o nó está localizado no extremo canto superior esquerdo da matriz */
+               *   É NULL sse a célula está localizado na primeira linha da matriz */
 
-		 struct tgNoMatriz * S ;
-				/* Ponteiro para o nó localizado a 180 graus do nó atual
-
-               *$EED Assertivas estruturais
-               *   É NULL sse o nó está localizado na primeira coluna da matriz*/
-
-		 struct tgNoMatriz * SO ;
-				/* Ponteiro para o nó localizado a 225 graus do nó atual
+		 struct tgCelulaMatriz * SE ;
+				/* Ponteiro para a célula localizado ao Sudeste da célula atual
 
                *$EED Assertivas estruturais
-               *   É NULL sse o nó está localizado no extremo canto inferior esquerdo da matriz*/
+               *   É NULL sse a célula está localizado no extremo canto superior esquerdo da matriz */
 
-		 struct tgNoMatriz * O ;
-				/* Ponteiro para o nó localizado a 270 graus do nó atual
-
-               *$EED Assertivas estruturais
-               *   É NULL sse o nó está localizado na ultima linha da matriz */
-
-		 struct tgNoMatriz * NO ;
-				/* Ponteiro para o nó localizado a 315 graus do nó atual
+		 struct tgCelulaMatriz * S ;
+				/* Ponteiro para a célula localizado ao SUl da célula atual
 
                *$EED Assertivas estruturais
-               *   É NULL sse o nó está localizado no extremo canto inferior direito da matriz */
+               *   É NULL sse a célula está localizado na primeira coluna da matriz*/
+
+		 struct tgCelulaMatriz * SO ;
+				/* Ponteiro para a célula localizado ao Sudoeste da célula atual
+
+               *$EED Assertivas estruturais
+               *   É NULL sse a célula está localizado no extremo canto inferior esquerdo da matriz*/
+
+		 struct tgCelulaMatriz * O ;
+				/* Ponteiro para a célula localizado ao Oeste da célula atual
+
+               *$EED Assertivas estruturais
+               *   É NULL sse a célula está localizado na ultima linha da matriz */
+
+		 struct tgCelulaMatriz * NO ;
+				/* Ponteiro para a célula localizado ao Noroeste da célula atual
+
+               *$EED Assertivas estruturais
+               *   É NULL sse a célula está localizado no extremo canto inferior direito da matriz */
 		 
 		 int linha;
-			/* Inteiro que representa a linha na qual o nó está localizado */
+			/* Inteiro que representa a linha na qual a célula está localizado */
 
 		 int coluna;
-			/* Inteiro que representa a coluna na qual o nó está localizado */
+			/* Inteiro que representa a coluna na qual a célula está localizado */
 
-   } tpNoMatriz ;
+   } tpCelulaMatriz ;
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: ARV Descritor da cabeça da Matriz
+*  $TC Tipo de dados: MAT Descritor da cabeça da Matriz
 *
 *
 *  $ED Descrição do tipo
-*     A cabe‡a da árvore é o ponto de acesso para uma determinada árvore.
-*     Por intermédio da referência para o nó corrente e do ponteiro
-*     pai pode-se navegar a árvore sem necessitar de uma pilha.
-*     Pode-se, inclusive, operar com a árvore em forma de co-rotina.
+*	Tipo Cabeça de Matriz é o tipo estruturado para acessar a quantidade de linhas 
+	e colunas da matriz, um ponteiro para a célula origem (linha 1 x coluna 1)
+	e ponteiro para uma célula corrente
+	
 *
 ***********************************************************************/
-
-
-   /*	Bolar uma estrutura para a matriz... vetor? lista de lista?
-		Cada célula da matriz já armazena uma lista, qual seria a funcionalidade da matriz?
-			seria andar pelas células pois cada uma tem acesso aos seus adjacentes...
-	*/
 
    typedef struct tgMatriz {
 
@@ -126,65 +120,46 @@
 		int qtdColuna;
 			/* Quantidade de colunas na matriz*/
 
-		struct tgNoMatriz * Origem;
+		struct tgCelulaMatriz * Origem;
 			/* Ponteiro para a primeira célula da matriz*/
 
-		struct tgNoMatriz * Corrente;
+		struct tgCelulaMatriz * Corrente;
 			/* Ponteiro para a célula corrente da lista */
 
+		LIS_tppLista listaAux ;
+		
 
    } tpMatriz ;
 
 /*****  Dados encapsulados no módulo  *****/
 
-      //static tpMatriz * pMatriz = NULL ;
-            /* Ponteiro para a cabe‡a da árvore */
-
-/***** Protótipos das funções encapuladas no módulo *****/
-
-   //static tpNoMatriz * CriarNo( ) ;
-
-   static void MAT_LiberaMatriz(tpNoMatriz ** Matriz);
-
-  // static void DestroiArvore( tpNoArvore * pNo ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
 /***************************************************************************
 *
-*  Função: ARV Criar árvore
+*  Função: MAT Criar Matriz
 *  ****/
    MAT_tpCondRet MAT_CriarMatriz(int lin, int col, tppMatriz * M)
    {
 	   int i,j;
 
-	   struct tgNoMatriz *** Mat;
+	   struct tgCelulaMatriz *** Mat;
 
-	   struct tgNoMatriz  * temp;
+	   struct tgCelulaMatriz  * temp;
 
-	   Mat = (tpNoMatriz***)malloc(lin*sizeof(tpNoMatriz**));
+	   Mat = (tpCelulaMatriz***)malloc(lin*sizeof(tpCelulaMatriz**));
 
 	   for(i = 0; i < col; i++)
 	   {
-		   Mat[i] = (tpNoMatriz**)malloc(col*sizeof(tpNoMatriz*));
+		   Mat[i] = (tpCelulaMatriz**)malloc(col*sizeof(tpCelulaMatriz*));
 	   }
 	   for(i = 0; i < lin; i++)
 	   {
 		   for(j = 0; j < col; j++)
 		   {
-			   temp = (tgNoMatriz*)malloc(sizeof(tpNoMatriz));
+			   temp = (tgCelulaMatriz*)malloc(sizeof(tpCelulaMatriz));
 			   Mat[i][j] = temp;
-			   /*
-			   M->Matriz[i][j].coluna = j;
-			   M->Matriz[i][j].No = NULL;
-			   M->Matriz[i][j].pNo0 = (j==n-1)? NULL : &M->Matriz[i][j+1];
-			   M->Matriz[i][j].pNo45 = (i==0 || j==n-1)? NULL : &M->Matriz[i-1][j+1];
-			   M->Matriz[i][j].pNo90 = (i==0)? NULL : &M->Matriz[i-1][j];
-			   M->Matriz[i][j].pNo135 = (i==0 || j==0)? NULL : &M->Matriz[i-1][j-1];
-			   M->Matriz[i][j].pNo180 = (j==0)? NULL : &M->Matriz[i][j-1];
-			   M->Matriz[i][j].pNo225 = (i==n-1|| j==0)? NULL : &M->Matriz[i+1][j-1];
-			   M->Matriz[i][j].pNo270 = (i==n-1)? NULL : &M->Matriz[i+1][j];
-			   M->Matriz[i][j].pNo315 = (i==n-1 || j==n-1)? NULL : &M->Matriz[i+1][j+1];*/
 		   }
 	   }
 	   for(i = 0; i < lin; i++)
@@ -207,6 +182,14 @@
 	   (*M)->Origem = Mat[0][0];
 	   (*M)->qtdColuna = col;
 	   (*M)->qtdLinha = lin;
+	   (*M)->listaAux = LIS_CriarLista( );
+	   for(i = 0; i < lin; i++)
+	   {
+		   for(j=0; j < col; j++)
+		   {
+			   LIS_InserirElementoApos((*M)->listaAux, Mat[i][j]);
+		   }
+	   }
 	   for(i = 0; i < lin; i++)
 		   free(Mat[i]);
 	   free(Mat);
@@ -214,302 +197,146 @@
    }
 /***************************************************************************
 *
-*  Função: ARV Destruir Matriz
+*  Função: MAT Destruir Matriz
 *  ****/
 
    void MAT_DestruirMatriz( tppMatriz M )
    {
-	   MAT_LiberaMatriz(M);
-	   free(&M);
+	   int i, j;
+	   int tam = (M->qtdLinha) * (M->qtdColuna) ;
+	   struct tgCelulaMatriz * cel;
+	   IrInicioLista(M->listaAux);
+	   cel = (struct tgCelulaMatriz*)LIS_ObterValor(M->listaAux);
+	   for( i = 0; i < tam ; i++)
+	   {
+		   cel->N = NULL;
+		   cel->NE = NULL;
+		   cel->E = NULL;
+		   cel->SE = NULL;
+		   cel->S = NULL;
+		   cel->SO = NULL;
+		   cel->O = NULL;
+		   cel->NO = NULL;
+		   LIS_DestruirLista(cel->lista);
+		   free(cel);
+		   LIS_AvancarElementoCorrente(M->listaAux, 1);
+	   }
+	    LIS_DestruirLista(M->listaAux);
+		free(M);
 
-   } /* Fim função: ARV Destruir Matriz */
-
-/***************************************************************************
-*
-*  Função: ARV Adicionar filho à esquerda
-*  ****/
-
-   MAT_tpCondRet MATnserirEsquerda( char ValorParm )
-   {
-
-      MAT_tpCondRet CondRet ;
-
-      tpNoArvore * pCorr ;
-      tpNoArvore * pNo ;
-
-      /* Tratar vazio, esquerda */
-
-         CondRet = CriarNoRaiz( ValorParm ) ;
-         if ( CondRet != MAT_CondRetNaoCriouRaiz )
-         {
-            return CondRet ;
-         } /* if */
-
-      /* Criar nó à esquerda de folha */
-
-         pCorr = pArvore->pNoCorr ;
-         if ( pCorr == NULL )
-         {
-            return MAT_CondRetErroEstrutura ;
-         } /* if */
-               
-         if ( pCorr->pNoEsq == NULL )
-         {
-            pNo = CriarNo( ValorParm ) ;
-            if ( pNo == NULL )
-            {
-               return MAT_CondRetFaltouMemoria ;
-            } /* if */
-            pNo->pNoPai      = pCorr ;
-            pCorr->pNoEsq    = pNo ;
-            pArvore->pNoCorr = pNo ;
-
-            return MAT_CondRetOK ;
-         } /* if */
-
-      /* Tratar não folha à esquerda */
-
-         return MAT_CondRetNaoEhFolha ;
-
-   } /* Fim função: ARV Adicionar filho à esquerda */
+   } /* Fim função: MAT Destruir Matriz */
 
 /***************************************************************************
 *
-*  Função: ARV Adicionar filho à direita
+*  Função: MAT Inserir Char Depois do Corrente
 *  ****/
 
-   MAT_tpCondRet ARV_InserirDireita( char ValorParm )
-   {
+ MAT_tpCondRet MAT_InserirCharDepois( LIS_tppLista lista, char Valor )
+{
+	char * c = (char*)malloc(1);
+	if(c == NULL)
+		return MAT_CondRetFaltouMemoria;
+	*c = Valor;
+	if(LIS_InserirElementoApos(lista, c)!= LIS_CondRetOK)
+		return MAT_CondRetErro;
 
-      MAT_tpCondRet CondRet ;
+	return MAT_CondRetOK;
 
-      tpNoArvore * pCorr ;
-      tpNoArvore * pNo ;
-
-      /* Tratar vazio, direita */
-
-         CondRet = CriarNoRaiz( ValorParm ) ;
-         if ( CondRet != MAT_CondRetNaoCriouRaiz )
-         {
-            return CondRet ;
-         } /* if */
-
-      /* Criar nó à direita de folha */
-
-         pCorr = pArvore->pNoCorr ;
-         if ( pCorr == NULL )
-         {
-            return MAT_CondRetErroEstrutura ;
-         } /* if */
-
-         if ( pCorr->pNoDir == NULL )
-         {
-            pNo = CriarNo( ValorParm ) ;
-            if ( pNo == NULL )
-            {
-               return MAT_CondRetFaltouMemoria ;
-            } /* if */
-            pNo->pNoPai      = pCorr ;
-            pCorr->pNoDir    = pNo ;
-            pArvore->pNoCorr = pNo ;
-
-            return MAT_CondRetOK ;
-         } /* if */
-
-      /* Tratar não folha à direita */
-
-         return MAT_CondRetNaoEhFolha ;
-
-   } /* Fim função: ARV Adicionar filho à direita */
+} /* Fim função: MAT Inserir Char Depois do Corrente */
 
 /***************************************************************************
 *
-*  Função: ARV Ir para nó pai
+*  Função: MAT Inserir Char Antes do Corrente
 *  ****/
 
-   MAT_tpCondRet ARV_IrPai( void )
-   {
+ MAT_tpCondRet MAT_InserirCharAntes( LIS_tppLista lista, char Valor )
+{
+	char * c = (char*)malloc(1);
+	if(c == NULL)
+		return MAT_CondRetFaltouMemoria;
+	*c = Valor;
+	if(LIS_InserirElementoAntes(lista, c)!= LIS_CondRetOK)
+		return MAT_CondRetErro;
 
-      if ( pArvore == NULL )
-      {
-         return MAT_CondRetArvoreNaoExiste ;
-      } /* if */
-      if ( pArvore->pNoCorr == NULL )
-      {
-         return MAT_CondRetArvoreVazia ;
-      } /* if */
+	return MAT_CondRetOK;
 
-      if ( pArvore->pNoCorr->pNoPai != NULL )
-      {
-         pArvore->pNoCorr = pArvore->pNoCorr->pNoPai ;
-         return MAT_CondRetOK ;
-      } else {
-         return MAT_CondRetNohEhRaiz ;
-      } /* if */
-
-   } /* Fim função: ARV Ir para nó pai */
+} /* Fim função: MAT Inserir Char Antes do Corrente */
 
 /***************************************************************************
 *
-*  Função: ARV Ir para nó à esquerda
+*  Função: MAT Obter Valor da lista
 *  ****/
 
-   MAT_tpCondRet ARV_IrNoEsquerda( void )
-   {
+  MAT_tpCondRet MAT_ObterValor( LIS_tppLista lista, char* valor)
+  {
+	 valor = (char*)LIS_ObterValor( lista );
 
-      if ( pArvore == NULL )
-      {
-         return MAT_CondRetArvoreNaoExiste ;
-      } /* if */
-
-      if ( pArvore->pNoCorr == NULL )
-      {
-         return MAT_CondRetArvoreVazia ;
-      } /* if */
-
-      if ( pArvore->pNoCorr->pNoEsq == NULL )
-      {
-         return MAT_CondRetNaoPossuiFilho ;
-      } /* if */
-
-      pArvore->pNoCorr = pArvore->pNoCorr->pNoEsq ;
-      return MAT_CondRetOK ;
-
-   } /* Fim função: ARV Ir para nó à esquerda */
+	 return MAT_CondRetOK;
+  }
 
 /***************************************************************************
 *
-*  Função: ARV Ir para nó à direita
+*  Função: MAT Avançar célula corrente
 *  ****/
 
-   MAT_tpCondRet ARV_IrNoDireita( void )
+   MAT_tpCondRet MAT_Avancar( tppMatriz matriz, char* direcao )
    {
-
-      if ( pArvore == NULL )
-      {
-         return MAT_CondRetMatrizNaoExiste ;
-      } /* if */
-
-      if ( pArvore->pNoCorr == NULL )
-      {
-         return MAT_CondRetArvoreVazia ;
-      } /* if */
-
-      if ( pArvore->pNoCorr->pNoDir == NULL )
-      {
-         return MAT_CondRetNaoPossuiFilho ;
-      } /* if */
-
-      pArvore->pNoCorr = pArvore->pNoCorr->pNoDir ;
-      return MAT_CondRetOK ;
-
-   } /* Fim função: ARV Ir para nó à direita */
+	   /* fazer um switch case */
+	   return MAT_CondRetOK;
+   }
 
 /***************************************************************************
 *
-*  Função: ARV Obter valor corrente
+*  Função: MAT INserir lista na célula da matriz
 *  ****/
 
-   MAT_tpCondRet ARV_ObterValorCorr( char * ValorParm )
+   MAT_tpCondRet MAT_InserirLista( tppMatriz matriz, LIS_tppLista pLista, int linha, int coluna )
    {
+	   return MAT_CondRetOK;
+   }
 
-      if ( pArvore == NULL )
-      {
-         return MAT_CondRetArvoreNaoExiste ;
-      } /* if */
-      if ( pArvore->pNoCorr == NULL )
-      {
-         return MAT_CondRetArvoreVazia ;
-      } /* if */
-      * ValorParm = pArvore->pNoCorr->Valor ;
-
-      return MAT_CondRetOK ;
-
-   } /* Fim função: ARV Obter valor corrente */
-
-
-/*****  Código das funções encapsuladas no módulo  *****/
-
-
-/***********************************************************************
+/***************************************************************************
 *
-*  $FC Função: ARV Criar nó da árvore
+*  Função: ARMAT Ir final da lista
+*  ****/
+
+  MAT_tpCondRet MAT_IrFinal( LIS_tppLista lista )
+  {
+	 IrFinalLista( lista );
+
+	 return MAT_CondRetOK;
+  }
+
+/***************************************************************************
 *
-*  $FV Valor retornado
-*     Ponteiro para o nó criado.
-*     Será NULL caso a memória tenha se esgotado.
-*     Os ponteiros do nó criado estarão nulos e o valor é igual ao do
-*     parâmetro.
-*
-***********************************************************************/
+*  Função: MAT Ir inicio da lista
+*  ****/
 
-   tpNoArvore * CriarNo( char ValorParm )
-   {
+  MAT_tpCondRet MAT_IrInicio( LIS_tppLista lista )
+  {
+	 IrInicioLista( lista );
 
-      tpNoArvore * pNo ;
-
-      pNo = ( tpNoArvore * ) malloc( sizeof( tpNoArvore )) ;
-      if ( pNo == NULL )
-      {
-         return NULL ;
-      } /* if */
-
-      pNo->pNoPai = NULL ;
-      pNo->pNoEsq = NULL ;
-      pNo->pNoDir = NULL ;
-      pNo->Valor  = ValorParm ;
-      return pNo ;
-
-   } /* Fim função: ARV Criar nó da árvore */
+	 return MAT_CondRetOK;
+  }
 
 
-/***********************************************************************
-*
-*  $FC Função: ARV Criar nó raiz da árvore
-*
-*  $FV Valor retornado
-*     MAT_CondRetOK
-*     MAT_CondRetFaltouMemoria
-*     MAT_CondRetNaoCriouRaiz
-*
-***********************************************************************/
+MAT_tpCondRet MAT_AvancarElementoCorrente( LIS_tppLista pLista ,
+                                              int numElem )
+{
+	if(LIS_AvancarElementoCorrente( pLista , numElem )!=LIS_CondRetOK)
+		return MAT_CondRetErro;
 
-   void MAT_LiberaMatriz(tpNoMatriz ** Matriz, int n)
-   {
-		int i;
-		for(i=0; i < n; i++)
-		{
-			free(Matriz[i]);
-		}
-	free(Matriz);
-} /* Fim função: ARV Criar nó raiz da árvore */
+	return MAT_CondRetOK;
+}
 
+ MAT_tpCondRet MAT_ExcluirElemento( LIS_tppLista pLista )
+ {
+	 if(LIS_ExcluirElemento( pLista )!=LIS_CondRetOK)
+		 return MAT_CondRetErro;
 
-/***********************************************************************
-*
-*  $FC Função: ARV Destruir a estrutura da árvore
-*
-*  $EAE Assertivas de entradas esperadas
-*     pNoArvore != NULL
-*
-***********************************************************************/
+	 return MAT_CondRetOK;
 
-   void DestroiArvore( tpNoArvore * pNo )
-   {
-
-      if ( pNo->pNoEsq != NULL )
-      {
-         DestroiArvore( pNo->pNoEsq ) ;
-      } /* if */
-
-      if ( pNo->pNoDir != NULL )
-      {
-         DestroiArvore( pNo->pNoDir ) ;
-      } /* if */
-
-      free( pNo ) ;
-
-   } /* Fim função: ARV Destruir a estrutura da árvore */
+}
 
 /********** Fim do módulo de implementação: Módulo árvore **********/
 

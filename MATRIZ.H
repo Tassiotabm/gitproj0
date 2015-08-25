@@ -101,7 +101,7 @@ typedef struct tgMatriz * tppMatriz;
 *
 ***********************************************************************/
 
-   void ARV_DestruirMatriz( tppMatriz matriz ) ;
+   void ARV_DestruirMatriz( tppMatriz M ) ;
 
 
 /***********************************************************************
@@ -186,7 +186,7 @@ typedef struct tgMatriz * tppMatriz;
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_InserirLista( tppMatriz matriz, int linha, int coluna ) ;
+   MAT_tpCondRet MAT_InserirLista( tppMatriz matriz, LIS_tppLista pLista, int linha, int coluna ) ;
 
 
 /***********************************************************************

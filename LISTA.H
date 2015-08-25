@@ -119,7 +119,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_CriarLista(LIS_tppLista * pLista,
+   LIS_tppLista LIS_CriarLista(
              void   ( * ExcluirValor ) ( void * pDado ) ) ;
 
 
@@ -203,8 +203,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 ***********************************************************************/
 
    LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista pLista ,
-                                          void * pValor        )
-       ;
+                                          void * pValor        );
 
 
 /***********************************************************************

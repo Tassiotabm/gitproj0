@@ -45,6 +45,7 @@
 																		e compara o charRecebido com o valor <Char>
 *     "=avancarelem"	<numElem>	<CondRet>					 	  - chama a função MAT_AvancarElementoCorrente( lista, numElem )
 *
+*	  "=destruirmatriz" <inxmat>	<CondRet>						  - Chama a função -------
 ***************************************************************************/
 
 #include    <string.h>
@@ -124,7 +125,7 @@ LIS_tppLista	lista;
 
       TST_tpCondRet Ret ;
 
-      /* Testar ARV Criar árvore */
+      /* Testar MAT Criar Matriz */
 
          if ( strcmp( ComandoTeste , CRIAR_MAT_CMD ) == 0 )
          {
@@ -143,7 +144,7 @@ LIS_tppLista	lista;
 
          } /* fim ativa: Testar MAT Criar Matriz */
 
-		  /* Testar  LIS Criar Lista  */
+		  /* Testar  MAT Criar Lista  */
 
 		  else if ( strcmp( ComandoTeste , CRIAR_LISTA_CMD ) == 0 )
          {
@@ -242,7 +243,7 @@ LIS_tppLista	lista;
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido =  MAT_InserirLista(vtMatriz[inxmat], linhaRecebida, colunaRecebida) ;
+            CondRetObtido =  MAT_InserirLista(vtMatriz[inxmat], lista, linhaRecebida, colunaRecebida) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao inserir a lista na matriz" );
