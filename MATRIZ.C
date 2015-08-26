@@ -150,7 +150,7 @@
 
 	   Mat = (tpCelulaMatriz***)malloc(lin*sizeof(tpCelulaMatriz**));
 
-	   for(i = 0; i < col; i++)
+	   for(i = 0; i < lin; i++)
 	   {
 		   Mat[i] = (tpCelulaMatriz**)malloc(col*sizeof(tpCelulaMatriz*));
 	   }
@@ -158,7 +158,7 @@
 	   {
 		   for(j = 0; j < col; j++)
 		   {
-			   temp = (tgCelulaMatriz*)malloc(sizeof(tpCelulaMatriz));
+			   temp = (tpCelulaMatriz*)malloc(sizeof(tpCelulaMatriz));
 			   Mat[i][j] = temp;
 		   }
 	   }
@@ -166,14 +166,17 @@
 	   {
 		   for(j = 0; j < col; j++)
 		   {
+			   // VOU MUDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR
 			   Mat[i][j]->E = (j==col-1)? NULL : Mat[i][j+1];
-			   Mat[i][j]->SE = (i==0 || j==col-1)? NULL : Mat[i-1][j+1];
-			   Mat[i][j]->S = (i==0)? NULL : Mat[i-1][j];
-			   Mat[i][j]->SO = (i==0 || j==0)? NULL : Mat[i-1][j-1];
+			   Mat[i][j]->SE = (i==lin-1 || j==col-1)? NULL : Mat[i+1][j+1];
+			   Mat[i][j]->S = (i==lin-1)? NULL : Mat[i+1][j];
+			   Mat[i][j]->SO = (i==lin-1 || j==0)? NULL : Mat[i+1][j-1];
 			   Mat[i][j]->O = (j==0)? NULL : Mat[i][j-1];
-			   Mat[i][j]->NO = (i==lin-1|| j==0)? NULL : Mat[i+1][j-1];
-			   Mat[i][j]->N = (i==lin-1)? NULL : Mat[i+1][j];
-			   Mat[i][j]->NE = (i==lin-1 || j==col-1)? NULL : Mat[i+1][j+1];
+			   Mat[i][j]->NO = (i==0 || j==0)? NULL : Mat[i-1][j-1];
+			   Mat[i][j]->N = (i==0)? NULL : Mat[i-1][j];
+			   Mat[i][j]->NE = (i==0 || j==col-1)? NULL : Mat[i-1][j+1];
+			   Mat[i][j]->coluna = j+1;
+			   Mat[i][j]->linha = i+1;
 		   }
 	   }
 	   /* Criar cabeça da matriz */
@@ -182,7 +185,7 @@
 	   (*M)->Origem = Mat[0][0];
 	   (*M)->qtdColuna = col;
 	   (*M)->qtdLinha = lin;
-	   (*M)->listaAux = LIS_CriarLista( );
+	   (*M)->listaAux = LIS_CriarLista(NULL);
 	   for(i = 0; i < lin; i++)
 	   {
 		   for(j=0; j < col; j++)
@@ -202,7 +205,7 @@
 
    void MAT_DestruirMatriz( tppMatriz M )
    {
-	   int i, j;
+	   int i;
 	   int tam = (M->qtdLinha) * (M->qtdColuna) ;
 	   struct tgCelulaMatriz * cel;
 	   IrInicioLista(M->listaAux);
@@ -225,6 +228,14 @@
 		free(M);
 
    } /* Fim função: MAT Destruir Matriz */
+
+MAT_tpCondRet MAT_CriarLista(LIS_tppLista * pLista)
+{
+	*pLista = LIS_CriarLista(NULL);
+
+	return MAT_CondRetOK;
+}
+
 
 /***************************************************************************
 *

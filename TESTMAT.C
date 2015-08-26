@@ -66,7 +66,7 @@
 #define     AVANCAR_CMD         "=avancar"
 #define		INS_CHAR_ANTES_CMD	"=inscharantes"
 #define		INS_CHAR_DEPOIS_CMD	"=inschardepois"
-#define		INS_LISTA_CMD		"=inserirlista"  
+#define		INS_LISTA_CMD		"=inslista"  
 #define		CRIAR_LISTA_CMD		"=criarlista"       
 #define		OBTER_VALOR_CMD		"=obtervalorelem" 
 #define		EXC_ELEM_CMD		"=excluirelem"    
