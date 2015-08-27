@@ -64,6 +64,7 @@
 
 #define     CRIAR_MAT_CMD       "=criarmatriz"
 #define     AVANCAR_CMD         "=avancar"
+#define		DESTRUIR_CMD		"=destruirmatriz"
 #define		INS_CHAR_ANTES_CMD	"=inscharantes"
 #define		INS_CHAR_DEPOIS_CMD	"=inschardepois"
 #define		INS_LISTA_CMD		"=inslista"  
@@ -162,6 +163,25 @@ LIS_tppLista	lista;
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao criar a Lista." );
          } /* fim ativa: Testar Criar Lista */
+
+      /* Testar MAT Inserir lista na Matriz */
+
+         else if ( strcmp( ComandoTeste , DESTRUIR_CMD ) == 0 )
+         {
+
+            NumLidos = LER_LerParametros( "ii" ,
+                               &inxmat, &CondRetEsperada ) ;
+            if ( NumLidos != 2 )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            CondRetObtido =  MAT_DestruirMatriz(vtMatriz[inxmat]) ;
+
+            return TST_CompararInt( CondRetEsperada , CondRetObtido ,
+                                    "Retorno errado ao inserir a lista na matriz" );
+
+         } /* fim ativa: Testar MAT Inserir lista na matriz*/
 
       /* Testar  MAT Avancar célula da matriz  */
 
