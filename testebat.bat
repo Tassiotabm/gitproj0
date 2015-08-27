@@ -1,1 +1,1 @@
-gitproj0 /steste > log.txt
+proj0 /steste > log.txt

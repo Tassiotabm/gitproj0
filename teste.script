@@ -9,7 +9,7 @@
 == CRIAR MATRIZ 2 - 2x1
 =criarmatriz 2 2 1 0
 
-== CRIAR MATRIZ 3 - 7x2
+== CRIAR MATRIZ 3 - 1x1
 =criarmatriz 3 1 1 0
 
 == CRIAR MATRIZ 4 - 7x2
@@ -18,26 +18,53 @@
 == CRIAR MATRIZ 5 - 9x7
 =criarmatriz 5 9 7 0
 
-== CRIAR MATRIZ ERRADA
-=criarmatriz 6 -1 25 1
+== CRIAR MATRIZ 6 - 3x3
+=criarmatriz 6 3 3 0
 
-== AVANCAR COM O CORRENTE DA 0 para o Leste
+== CRIAR MATRIZ 7 - 10x10
+=criarmatriz 7 10 10 0
+
+== CRIAR MATRIZ 8 - 20x20
+=criarmatriz 8 20 20 0
+
+== CRIAR MATRIZ 9 - 1x2
+=criarmatriz 9 1 2 0
+
+== CRIAR MATRIZ ERRADA (-1x-100)
+=criarmatriz 6 -1 -100 1
+
+== AVANCAR COM O CORRENTE DA MATRIZ 0 O LESTE
 =avancar "Leste" 0 0
 
-== AVANCAR COM O CORRENTE DA 0 para o Sul
+== AVANCAR COM O CORRENTE DA MATRIZ 0 PARA O SUL
 =avancar "Sul" 0 0
 
-== Avancar com o corrente da 0 para o Sul (errado)
+== AVANCAR COM O CORRENTE DA MATRIZ 0 PARA O SUL (ERRADO)
 =avancar "Sul" 0 1
+
+== AVANCAR COM O CORRENTE DA MATRIZ 2 PAR AO NORTE (ERRADO)
+=avancar "Norte" 1 1
+
+== AVANCAR LESTE 2 VEZES NA MATRIZ 7 (10x10)
+=avancar "Leste" 7 0
+=avancar "Leste" 7 0
+== AVANCAR SUDESTE NA MATRIZ 7 (10x10)
+=avancar "Sudeste" 7 0
+== AVANCAR SUL NA MATRIZ 7 (10x10)
+=avancar "Sul" 7 0
+== AVANCAR SUDOESTE NA MATRIZ 7 (10x10)
+=avancar "Sudoeste" 7 0
+== AVANCAR OESTE NA MATRIZ 7 (10x10)
+=avancar "Oeste" 7 0
+== AVANCAR NOROESTE NA MATRIZ 7 (10x10)
+=avancar "Noroeste" 7 0
+== AVANCAR NORTE NA MATRIZ 7 (10x10)
+=avancar "Norte" 7 0
+== AVANCAR NORDESTE NA MATRIZ 7 (10x10)
+=avancar "Nordeste" 7 0
 
 == CRIAR LISTA
 =criarlista 0
-
-== AVANCAR quarto vezes SUL NA MATRIZ 5
-=avancar "Sul" 5 0
-=avancar "Sul" 5 0
-=avancar "Sul" 5 0
-=avancar "Sul" 5 0
 
 
 == INSERIR CHAR 
@@ -46,7 +73,7 @@
 == TESTAR OBTER VALOR 'C'
 =obtervalorelem 'c' 0
 
-== INserir char 'a'
+== Inserir char 'a'
 =inschardepois 'a' 0
 
 == TESTAR OBTER VALOR 'a'
@@ -71,8 +98,11 @@
 =excluirelem 0
 =obtervalorelem 'c' 0
 
+== TESTAR IR INICIO E OBTER O VALOR DO CHAR 'c'
+=irinicio 0
+=obtervalorelem 'c' 0
 
-== Inserir a lista na matriz
+== Inserir a lista na matriz 0 (2x2) na célula 1x2
 =inslista 0 1 2 0
 
 == CRIAR LISTA
@@ -94,8 +124,36 @@
 == INSERIR A LISTA NA MATRIZ 5 (9x7) NA CELULA 8x4
 =inslista 5 8 4 0
 
-== INSERIR CHAR '!'
-=inschardepois '!' 0
+== CRIAR LISTA
+=criarlista 0
+
+== INSERIR CARACTERES NA LISTA
+=inschardepois 'a' 0
+=inschardepois 'j' 0
+=inschardepois 'u' 0
+=inschardepois 'd' 0
+=inschardepois 'a' 0
+
+== Inserir lista na celula 10x10 da matriz 7 (10x10)
+=inslista 7 10 10 0
 
 == DESTRUIR MATRIZ 0
 =destruirmatriz 0 0
+== DESTRUIR MATRIZ 1
+=destruirmatriz 1 0
+== DESTRUIR MATRIZ 2
+=destruirmatriz 2 0
+== DESTRUIR MATRIZ 3
+=destruirmatriz 3 0
+== DESTRUIR MATRIZ 4
+=destruirmatriz 4 0
+== DESTRUIR MATRIZ 5
+=destruirmatriz 5 0
+== DESTRUIR MATRIZ 6
+=destruirmatriz 6 0
+== DESTRUIR MATRIZ 7
+=destruirmatriz 7 0
+== DESTRUIR MATRIZ 8
+=destruirmatriz 8 0
+== DESTRUIR MATRIZ 9
+=destruirmatriz 9 0
