@@ -22,6 +22,7 @@
 
 #include   <malloc.h>
 #include   <stdio.h>
+#include   <string.h>
 #include   "LISTA.H"
 
 #define MATRIZ_OWN
@@ -148,9 +149,13 @@
 
 	   struct tgCelulaMatriz  * temp;
 
+	   	   /* checa a dimensão da matriz */
+	   if(lin < 0 || col < 0)
+		   return MAT_CondRetErro;
+
 	   Mat = (tpCelulaMatriz***)malloc(lin*sizeof(tpCelulaMatriz**));
 
-	   for(i = 0; i < col; i++)
+	   for(i = 0; i < lin; i++)
 	   {
 		   Mat[i] = (tpCelulaMatriz**)malloc(col*sizeof(tpCelulaMatriz*));
 	   }
@@ -158,7 +163,7 @@
 	   {
 		   for(j = 0; j < col; j++)
 		   {
-			   temp = (tgCelulaMatriz*)malloc(sizeof(tpCelulaMatriz));
+			   temp = (tpCelulaMatriz*)malloc(sizeof(tpCelulaMatriz));
 			   Mat[i][j] = temp;
 		   }
 	   }
@@ -167,22 +172,26 @@
 		   for(j = 0; j < col; j++)
 		   {
 			   Mat[i][j]->E = (j==col-1)? NULL : Mat[i][j+1];
-			   Mat[i][j]->SE = (i==0 || j==col-1)? NULL : Mat[i-1][j+1];
-			   Mat[i][j]->S = (i==0)? NULL : Mat[i-1][j];
-			   Mat[i][j]->SO = (i==0 || j==0)? NULL : Mat[i-1][j-1];
+			   Mat[i][j]->SE = (i==lin-1 || j==col-1)? NULL : Mat[i+1][j+1];
+			   Mat[i][j]->S = (i==lin-1)? NULL : Mat[i+1][j];
+			   Mat[i][j]->SO = (i==lin-1 || j==0)? NULL : Mat[i+1][j-1];
 			   Mat[i][j]->O = (j==0)? NULL : Mat[i][j-1];
-			   Mat[i][j]->NO = (i==lin-1|| j==0)? NULL : Mat[i+1][j-1];
-			   Mat[i][j]->N = (i==lin-1)? NULL : Mat[i+1][j];
-			   Mat[i][j]->NE = (i==lin-1 || j==col-1)? NULL : Mat[i+1][j+1];
+			   Mat[i][j]->NO = (i==0 || j==0)? NULL : Mat[i-1][j-1];
+			   Mat[i][j]->N = (i==0)? NULL : Mat[i-1][j];
+			   Mat[i][j]->NE = (i==0 || j==col-1)? NULL : Mat[i-1][j+1];
+			   Mat[i][j]->coluna = j+1;
+			   Mat[i][j]->linha = i+1;
+			   Mat[i][j]->lista = NULL;
 		   }
 	   }
+
 	   /* Criar cabeça da matriz */
 	   *M = (tppMatriz)malloc(sizeof(tpMatriz));
 	   (*M)->Corrente = Mat[0][0];
 	   (*M)->Origem = Mat[0][0];
 	   (*M)->qtdColuna = col;
 	   (*M)->qtdLinha = lin;
-	   (*M)->listaAux = LIS_CriarLista( );
+	   (*M)->listaAux = LIS_CriarLista(NULL);
 	   for(i = 0; i < lin; i++)
 	   {
 		   for(j=0; j < col; j++)
@@ -200,15 +209,15 @@
 *  Função: MAT Destruir Matriz
 *  ****/
 
-   void MAT_DestruirMatriz( tppMatriz M )
+   MAT_tpCondRet MAT_DestruirMatriz( tppMatriz M )
    {
-	   int i, j;
+	   int i;
 	   int tam = (M->qtdLinha) * (M->qtdColuna) ;
 	   struct tgCelulaMatriz * cel;
 	   IrInicioLista(M->listaAux);
-	   cel = (struct tgCelulaMatriz*)LIS_ObterValor(M->listaAux);
 	   for( i = 0; i < tam ; i++)
 	   {
+		   cel = (struct tgCelulaMatriz*)LIS_ObterValor(M->listaAux);
 		   cel->N = NULL;
 		   cel->NE = NULL;
 		   cel->E = NULL;
@@ -217,14 +226,27 @@
 		   cel->SO = NULL;
 		   cel->O = NULL;
 		   cel->NO = NULL;
-		   LIS_DestruirLista(cel->lista);
+
+		   if(cel->lista != NULL)
+				LIS_DestruirLista(cel->lista);
+
 		   free(cel);
 		   LIS_AvancarElementoCorrente(M->listaAux, 1);
 	   }
 	    LIS_DestruirLista(M->listaAux);
 		free(M);
 
+		return MAT_CondRetOK;
+
    } /* Fim função: MAT Destruir Matriz */
+
+MAT_tpCondRet MAT_CriarLista(LIS_tppLista * pLista)
+{
+	*pLista = LIS_CriarLista(NULL);
+
+	return MAT_CondRetOK;
+}
+
 
 /***************************************************************************
 *
@@ -269,7 +291,9 @@
 
   MAT_tpCondRet MAT_ObterValor( LIS_tppLista lista, char* valor)
   {
-	 valor = (char*)LIS_ObterValor( lista );
+	  char * o;
+	 o = (char*)LIS_ObterValor( lista );
+	 *valor = *o;
 
 	 return MAT_CondRetOK;
   }
@@ -281,7 +305,62 @@
 
    MAT_tpCondRet MAT_Avancar( tppMatriz matriz, char* direcao )
    {
-	   /* fazer um switch case */
+	   /* fazer um switch case
+			case (strcmp("Norte", direcao))
+				matriz->corrente->origem = matriz->corrente->N
+				...
+				...
+				...
+		*/
+	   if(strcmp("Norte", direcao) == 0)
+	   {
+		   if(matriz->Corrente->N == NULL)
+			   return MAT_CondRetErro;
+		   matriz->Corrente = matriz->Corrente->N;
+	   }
+	   else if(strcmp("Nordeste", direcao) == 0)
+	   {
+		   if(matriz->Corrente->NE == NULL)
+			   return MAT_CondRetErro;
+		   matriz->Corrente = matriz->Corrente->NE;
+	   }
+	   else if(strcmp("Leste", direcao) == 0)
+	   {
+		   if(matriz->Corrente->E == NULL)
+			   return MAT_CondRetErro;
+		   matriz->Corrente = matriz->Corrente->E;
+	   }
+	   else if(strcmp("Sudeste", direcao) == 0)
+	   {
+		   if(matriz->Corrente->SE == NULL)
+			   return MAT_CondRetErro;
+		   matriz->Corrente = matriz->Corrente->SE;
+	   }
+	   else if(strcmp("Sul", direcao) == 0)
+	   {
+		   if(matriz->Corrente->S == NULL)
+			   return MAT_CondRetErro;
+		   matriz->Corrente = matriz->Corrente->S;
+	   }
+	   else if(strcmp("Sudoeste", direcao) == 0)
+	   {
+		   if(matriz->Corrente->SO == NULL)
+			   return MAT_CondRetErro;
+		   matriz->Corrente = matriz->Corrente->SO;
+	   }
+	   else if(strcmp("Oeste", direcao) == 0)
+	   {
+		   if(matriz->Corrente->O == NULL)
+			   return MAT_CondRetErro;
+		   matriz->Corrente = matriz->Corrente->O;
+	   }
+	   else if(strcmp("Noroeste", direcao) == 0)
+	   {
+		   if(matriz->Corrente->NO == NULL)
+			   return MAT_CondRetErro;
+		   matriz->Corrente = matriz->Corrente->NO;
+	   }
+
 	   return MAT_CondRetOK;
    }
 
@@ -292,6 +371,20 @@
 
    MAT_tpCondRet MAT_InserirLista( tppMatriz matriz, LIS_tppLista pLista, int linha, int coluna )
    {
+	   int i = matriz->qtdLinha, j = matriz->qtdColuna;
+	   /* calculo para descobrir a posição do elemento que se deseja obter na lista auxiliar
+		  dependendo da linha e coluna desejada */
+	   int avancar = j*linha - ( j - coluna ); 
+	   tpCelulaMatriz * cel;
+	   IrInicioLista(matriz->listaAux);
+	   LIS_AvancarElementoCorrente(matriz->listaAux, avancar - 1);
+	   cel = (tpCelulaMatriz*)LIS_ObterValor(matriz->listaAux);
+
+	   if(cel->lista != NULL)
+		   return MAT_CondRetErro;
+
+	   cel->lista = pLista;
+
 	   return MAT_CondRetOK;
    }
 

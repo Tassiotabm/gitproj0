@@ -1,0 +1,26 @@
+
+
+LES - Laboratório de Engenharia de Software DI/PUC-Rio
+      Arcabouço de teste de módulos C  (c) 2006
+
+---------------------------------------------
+      Construto sob teste: gitproj0
+
+      Arquivo de teste:    teste
+
+
+!!!    0  Linha:     1  // Teste Simples de Matrizes 
+    3  == CRIAR MATRIZ 2x1
+   11  == CRIAR LISTA
+   14  == INSERIR CHAR
+   18  == Inserir a lista na matriz
+
+!!! Número de linhas lidas:          19
+!!! Número de casos de teste:         4
+!!! Número comandos corretos:        10
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

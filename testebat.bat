@@ -1,0 +1,1 @@
+gitproj0 /steste > log.txt

@@ -1,0 +1,19 @@
+// Teste Simples de Matrizes
+
+== CRIAR MATRIZ 2x1
+=criarmatriz 0 2 2 0
+=criarmatriz 1 6 7 0
+=criarmatriz 2 2 1 0
+=criarmatriz 3 1 1 0
+=criarmatriz 4 7 2 0
+=criarmatriz 5 9 7 0
+
+== CRIAR LISTA
+=criarlista 0
+
+== INSERIR CHAR
+=inschardepois 'c' 0
+=inschardepois 'a' 0
+
+== Inserir a lista na matriz
+=inslista 0 1 2 0

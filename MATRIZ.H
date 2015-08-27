@@ -101,7 +101,7 @@ typedef struct tgMatriz * tppMatriz;
 *
 ***********************************************************************/
 
-   void ARV_DestruirMatriz( tppMatriz M ) ;
+   MAT_tpCondRet MAT_DestruirMatriz( tppMatriz M ) ;
 
 
 /***********************************************************************
