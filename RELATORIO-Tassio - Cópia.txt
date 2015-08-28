@@ -1,0 +1,8 @@
+Data		Horas Trabalhadas		Descrição da Tarefa Realizada
+14/08		4				Estudar
+18/08		2				Estudar, Projetar, Codigo Modulo
+19/08		2				Especificar Modulos, Especificar Funcoes, realizar testes			
+24/08		2				Projetar, Revisar codigo modulo, diagnosticar e corrigir problemas encontrados
+25/08		2				Redigir script de teste, Revisar script de teste,
+26/08		2				Realizar testes, diagnosticar e corrigir problemas encontrados
+28/08           1				Revisar Projetos, diagnosticar e corrigir problemas encontrados
