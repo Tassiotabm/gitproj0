@@ -9,7 +9,11 @@
 == CRIAR MATRIZ 2 - 2x1
 =criarmatriz 2 2 1 0
 
+<<<<<<< HEAD
 == CRIAR MATRIZ 3 - 1x1
+=======
+== CRIAR MATRIZ 3 - 7x2
+>>>>>>> Felipe-Visgou/branch1
 =criarmatriz 3 1 1 0
 
 == CRIAR MATRIZ 4 - 7x2
@@ -18,6 +22,7 @@
 == CRIAR MATRIZ 5 - 9x7
 =criarmatriz 5 9 7 0
 
+<<<<<<< HEAD
 == CRIAR MATRIZ 6 - 3x3
 =criarmatriz 6 3 3 0
 
@@ -66,6 +71,29 @@
 == CRIAR LISTA
 =criarlista 0
 
+=======
+== CRIAR MATRIZ ERRADA
+=criarmatriz 6 -1 25 1
+
+== AVANCAR COM O CORRENTE DA 0 para o Leste
+=avancar "Leste" 0 0
+
+== AVANCAR COM O CORRENTE DA 0 para o Sul
+=avancar "Sul" 0 0
+
+== Avancar com o corrente da 0 para o Sul (errado)
+=avancar "Sul" 0 1
+
+== CRIAR LISTA
+=criarlista 0
+
+== AVANCAR quarto vezes SUL NA MATRIZ 5
+=avancar "Sul" 5 0
+=avancar "Sul" 5 0
+=avancar "Sul" 5 0
+=avancar "Sul" 5 0
+
+>>>>>>> Felipe-Visgou/branch1
 
 == INSERIR CHAR 
 =inschardepois 'c' 0
@@ -73,7 +101,11 @@
 == TESTAR OBTER VALOR 'C'
 =obtervalorelem 'c' 0
 
+<<<<<<< HEAD
 == Inserir char 'a'
+=======
+== INserir char 'a'
+>>>>>>> Felipe-Visgou/branch1
 =inschardepois 'a' 0
 
 == TESTAR OBTER VALOR 'a'
@@ -98,11 +130,16 @@
 =excluirelem 0
 =obtervalorelem 'c' 0
 
+<<<<<<< HEAD
 == TESTAR IR INICIO E OBTER O VALOR DO CHAR 'c'
 =irinicio 0
 =obtervalorelem 'c' 0
 
 == Inserir a lista na matriz 0 (2x2) na célula 1x2
+=======
+
+== Inserir a lista na matriz
+>>>>>>> Felipe-Visgou/branch1
 =inslista 0 1 2 0
 
 == CRIAR LISTA
@@ -124,6 +161,7 @@
 == INSERIR A LISTA NA MATRIZ 5 (9x7) NA CELULA 8x4
 =inslista 5 8 4 0
 
+<<<<<<< HEAD
 == CRIAR LISTA
 =criarlista 0
 
@@ -157,3 +195,10 @@
 =destruirmatriz 8 0
 == DESTRUIR MATRIZ 9
 =destruirmatriz 9 0
+=======
+== INSERIR CHAR '!'
+=inschardepois '!' 0
+
+== DESTRUIR MATRIZ 0
+=destruirmatriz 0 0
+>>>>>>> Felipe-Visgou/branch1
