@@ -1,0 +1,1 @@
+proj0 /steste > log.txt

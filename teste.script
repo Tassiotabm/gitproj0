@@ -1,0 +1,159 @@
+// Teste Simples de Matrizes
+
+== CRIAR MATRIZ 0 - 2x2
+=criarmatriz 0 2 2 0
+
+== CRIAR MATRIZ 1 - 6x7
+=criarmatriz 1 6 7 0
+
+== CRIAR MATRIZ 2 - 2x1
+=criarmatriz 2 2 1 0
+
+== CRIAR MATRIZ 3 - 1x1
+=criarmatriz 3 1 1 0
+
+== CRIAR MATRIZ 4 - 7x2
+=criarmatriz 4 7 2 0
+
+== CRIAR MATRIZ 5 - 9x7
+=criarmatriz 5 9 7 0
+
+== CRIAR MATRIZ 6 - 3x3
+=criarmatriz 6 3 3 0
+
+== CRIAR MATRIZ 7 - 10x10
+=criarmatriz 7 10 10 0
+
+== CRIAR MATRIZ 8 - 20x20
+=criarmatriz 8 20 20 0
+
+== CRIAR MATRIZ 9 - 1x2
+=criarmatriz 9 1 2 0
+
+== CRIAR MATRIZ ERRADA (-1x-100)
+=criarmatriz 6 -1 -100 1
+
+== AVANCAR COM O CORRENTE DA MATRIZ 0 O LESTE
+=avancar "Leste" 0 0
+
+== AVANCAR COM O CORRENTE DA MATRIZ 0 PARA O SUL
+=avancar "Sul" 0 0
+
+== AVANCAR COM O CORRENTE DA MATRIZ 0 PARA O SUL (ERRADO)
+=avancar "Sul" 0 1
+
+== AVANCAR COM O CORRENTE DA MATRIZ 2 PAR AO NORTE (ERRADO)
+=avancar "Norte" 1 1
+
+== AVANCAR LESTE 2 VEZES NA MATRIZ 7 (10x10)
+=avancar "Leste" 7 0
+=avancar "Leste" 7 0
+== AVANCAR SUDESTE NA MATRIZ 7 (10x10)
+=avancar "Sudeste" 7 0
+== AVANCAR SUL NA MATRIZ 7 (10x10)
+=avancar "Sul" 7 0
+== AVANCAR SUDOESTE NA MATRIZ 7 (10x10)
+=avancar "Sudoeste" 7 0
+== AVANCAR OESTE NA MATRIZ 7 (10x10)
+=avancar "Oeste" 7 0
+== AVANCAR NOROESTE NA MATRIZ 7 (10x10)
+=avancar "Noroeste" 7 0
+== AVANCAR NORTE NA MATRIZ 7 (10x10)
+=avancar "Norte" 7 0
+== AVANCAR NORDESTE NA MATRIZ 7 (10x10)
+=avancar "Nordeste" 7 0
+
+== CRIAR LISTA
+=criarlista 0
+
+
+== INSERIR CHAR 
+=inschardepois 'c' 0
+
+== TESTAR OBTER VALOR 'C'
+=obtervalorelem 'c' 0
+
+== Inserir char 'a'
+=inschardepois 'a' 0
+
+== TESTAR OBTER VALOR 'a'
+=obtervalorelem 'a' 0
+
+==Inserir char antes
+=inscharantes 'b' 0
+
+==Testar obter valor errado deveria ser 'b'
+=obtervalorelem 'f' 0
+=recuperar
+
+== TESTAR IR FINAL E OBTER O VALOR DO CHAR 'a'
+=irfinal 0
+=obtervalorelem 'a' 0
+
+== TESTAR AVANCAR ELEMENTO CORRENTE DA LISTA E OBTER O VALOR 'b'
+=avancarelem -1 0
+=obtervalorelem 'b' 0
+
+== TESTAR EXCLUIR ELEMENTO DA LISTA E OBTER O VALOR 'c'
+=excluirelem 0
+=obtervalorelem 'c' 0
+
+== TESTAR IR INICIO E OBTER O VALOR DO CHAR 'c'
+=irinicio 0
+=obtervalorelem 'c' 0
+
+== Inserir a lista na matriz 0 (2x2) na célula 1x2
+=inslista 0 1 2 0
+
+== CRIAR LISTA
+=criarlista 0
+
+== ADICIONAR CHAR 'f' na lista
+=inschardepois 'f' 0
+== ADICIONAR CHAR 'l' na lista
+=inschardepois 'l' 0
+== ADICIONAR CHAR 'a' na lista
+=inschardepois 'a' 0
+== ADICIONAR CHAR 'v' na lista
+=inschardepois 'v' 0
+== ADICIONAR CHAR 'i' na lista
+=inschardepois 'i' 0
+== ADICIONAR CHAR 'o' na lista
+=inschardepois 'o' 0
+
+== INSERIR A LISTA NA MATRIZ 5 (9x7) NA CELULA 8x4
+=inslista 5 8 4 0
+
+== CRIAR LISTA
+=criarlista 0
+
+== INSERIR CARACTERES NA LISTA
+=inschardepois 'a' 0
+=inschardepois 'j' 0
+=inschardepois 'u' 0
+=inschardepois 'd' 0
+=inschardepois 'a' 0
+
+== Inserir lista na celula 10x10 da matriz 7 (10x10)
+=inslista 7 10 10 0
+
+== DESTRUIR MATRIZ 0
+=destruirmatriz 0 0
+== DESTRUIR MATRIZ 1
+=destruirmatriz 1 0
+== DESTRUIR MATRIZ 2
+=destruirmatriz 2 0
+== DESTRUIR MATRIZ 3
+=destruirmatriz 3 0
+== DESTRUIR MATRIZ 4
+=destruirmatriz 4 0
+== DESTRUIR MATRIZ 5
+=destruirmatriz 5 0
+== DESTRUIR MATRIZ 6
+=destruirmatriz 6 0
+== DESTRUIR MATRIZ 7
+=destruirmatriz 7 0
+== DESTRUIR MATRIZ 8
+=destruirmatriz 8 0
+== DESTRUIR MATRIZ 9
+=destruirmatriz 9 0
