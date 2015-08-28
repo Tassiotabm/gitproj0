@@ -41,7 +41,7 @@
 typedef struct tgMatriz * tppMatriz;
 /***********************************************************************
 *
-*  $TC Tipo de dados: ARV Condicoes de retorno
+*  $TC Tipo de dados: MAT Condicoes de retorno
 *
 *
 ***********************************************************************/
@@ -98,6 +98,14 @@ typedef struct tgMatriz * tppMatriz;
 *
 *  $FC Função: MAT Destruir Matriz
 *
+*  $ED Descrição da função
+*     Destrói a lista atrelada a cada célula da matriz e a própria matriz
+*
+*  $EP Parâmetros
+*		M	- Matriz que se deseja destruir.
+*
+*  $FV Valor retornado
+*     MAT_CondRetOK - Destrui sem problemas
 *
 ***********************************************************************/
 

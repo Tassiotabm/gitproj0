@@ -12,6 +12,8 @@
 *  Gestor:  DI/PUC-Rio
 *  Autores: avs - Arndt von Staa
 			fvc	- Felipe Vieira Cortes
+*			tbm - Tássio Borges de Miranda
+*			db  - Daniela Brazão
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
@@ -29,7 +31,7 @@
 *  $EIU Interface com o usuário pessoa
 *     Comandos de teste específicos para testar o módulo Matriz:
 *
-*     =criarmatriz		<inxmat>	<linha>		<coluna>	<CondRet> - Chama a função MAT_CriarMatriz( inha, coluna, vtMatriz[inxmat])
+*     =criarmatriz		<inxmat>	<linha>		<coluna>	<CondRet> - Chama a função MAT_CriarMatriz( linha, coluna, vtMatriz[inxmat])
 *	  =criarlista		<CondRet>									  - Chama a função MAT_CriarLista( lista )
 *     =avancar			<Direção>	<inxmat>	<CondRet>			  - Chama a função MAT_Avancar(vtMatriz[inxmat], direcao )
 *																		e avança a célula corrente da matriz de acordo com a direção dada.
@@ -45,7 +47,7 @@
 																		e compara o charRecebido com o valor <Char>
 *     "=avancarelem"	<numElem>	<CondRet>					 	  - chama a função MAT_AvancarElementoCorrente( lista, numElem )
 *
-*	  "=destruirmatriz" <inxmat>	<CondRet>						  - Chama a função -------
+*	  "=destruirmatriz" <inxmat>	<CondRet>						  - Chama a função  MAT_DestruirMatriz( vtMatriz[inxmat] )
 ***************************************************************************/
 
 #include    <string.h>

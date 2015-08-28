@@ -9,14 +9,20 @@
 *  Projeto: Disciplinas INF 1628 / 1301
 *  Gestor:  DI/PUC-Rio
 *  Autores: avs - Arndt von Staa
+*			fvc - Felipe Vieira Côrtes
+*			tbm - Tássio Borges de Miranda
+*			db  - Daniela Brazão
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-		4.00					Mudança no módulo para operar matrizes
+*		4.00   fvc	 28/08/2015	Mudança no módulo para operar matrizes
 *       3.00   avs   28/02/2003 Uniformização da interface das funções e
 *                               de todas as condições de retorno.
 *       2.00   avs   03/08/2002 Eliminação de código duplicado, reestruturação
 *       1.00   avs   15/08/2001 Início do desenvolvimento
+*
+*  $ED Descrição do módulo
+*     Este módulo contém as funções do módulo Matriz.
 *
 ***************************************************************************/
 
@@ -203,7 +209,8 @@
 		   free(Mat[i]);
 	   free(Mat);
 	   return MAT_CondRetOK;
-   }
+   } /* Fim função: MAT Criar Matriz */
+
 /***************************************************************************
 *
 *  Função: MAT Destruir Matriz
@@ -296,7 +303,7 @@ MAT_tpCondRet MAT_CriarLista(LIS_tppLista * pLista)
 	 *valor = *o;
 
 	 return MAT_CondRetOK;
-  }
+  } /* Fim função: MAT Obter Valor da lista */
 
 /***************************************************************************
 *
@@ -305,13 +312,6 @@ MAT_tpCondRet MAT_CriarLista(LIS_tppLista * pLista)
 
    MAT_tpCondRet MAT_Avancar( tppMatriz matriz, char* direcao )
    {
-	   /* fazer um switch case
-			case (strcmp("Norte", direcao))
-				matriz->corrente->origem = matriz->corrente->N
-				...
-				...
-				...
-		*/
 	   if(strcmp("Norte", direcao) == 0)
 	   {
 		   if(matriz->Corrente->N == NULL)
@@ -362,7 +362,7 @@ MAT_tpCondRet MAT_CriarLista(LIS_tppLista * pLista)
 	   }
 
 	   return MAT_CondRetOK;
-   }
+   } /* Fim função: MAT Avançar célula corrente */
 
 /***************************************************************************
 *
@@ -386,11 +386,11 @@ MAT_tpCondRet MAT_CriarLista(LIS_tppLista * pLista)
 	   cel->lista = pLista;
 
 	   return MAT_CondRetOK;
-   }
+   } /* Fim função: MAT INserir lista na célula da matriz */
 
 /***************************************************************************
 *
-*  Função: ARMAT Ir final da lista
+*  Função: MAT Ir final da lista
 *  ****/
 
   MAT_tpCondRet MAT_IrFinal( LIS_tppLista lista )
@@ -398,7 +398,7 @@ MAT_tpCondRet MAT_CriarLista(LIS_tppLista * pLista)
 	 IrFinalLista( lista );
 
 	 return MAT_CondRetOK;
-  }
+  } /* Fim função:  MAT Ir final da lista */
 
 /***************************************************************************
 *
@@ -410,9 +410,12 @@ MAT_tpCondRet MAT_CriarLista(LIS_tppLista * pLista)
 	 IrInicioLista( lista );
 
 	 return MAT_CondRetOK;
-  }
+  } /* Fim função:  MAT Ir inicio da lista */
 
-
+  /***************************************************************************
+  *
+  *  Função: MAT Avancar o elemento corrente da lista
+  *  ****/
 MAT_tpCondRet MAT_AvancarElementoCorrente( LIS_tppLista pLista ,
                                               int numElem )
 {
@@ -420,8 +423,12 @@ MAT_tpCondRet MAT_AvancarElementoCorrente( LIS_tppLista pLista ,
 		return MAT_CondRetErro;
 
 	return MAT_CondRetOK;
-}
+} /* Fim função:  MAT Avancar o elemento corrente da lista */
 
+/***************************************************************************
+*
+*  Função: MAT Excluir o elemento da lista
+*  ****/
  MAT_tpCondRet MAT_ExcluirElemento( LIS_tppLista pLista )
  {
 	 if(LIS_ExcluirElemento( pLista )!=LIS_CondRetOK)
@@ -429,7 +436,7 @@ MAT_tpCondRet MAT_AvancarElementoCorrente( LIS_tppLista pLista ,
 
 	 return MAT_CondRetOK;
 
-}
+} /* Fim função:  MATExcluir o elemento da lista */
 
-/********** Fim do módulo de implementação: Módulo árvore **********/
+/********** Fim do módulo de implementação: Módulo Matriz **********/
 
