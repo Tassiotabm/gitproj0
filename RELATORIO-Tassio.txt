@@ -1,8 +1,8 @@
-Data		Horas Trabalhadas		Descrição da Tarefa Realizada
-14/08		4				Estudar
-18/08		2				Estudar, Projetar, Codigo Modulo
-19/08		2				Especificar Modulos, Especificar Funcoes, realizar testes			
-24/08		2				Projetar, Revisar codigo modulo, diagnosticar e corrigir problemas encontrados
-25/08		2				Redigir script de teste, Revisar script de teste,
-26/08		2				Realizar testes, diagnosticar e corrigir problemas encontrados
-28/08           1				Revisar Projetos, diagnosticar e corrigir problemas encontrados
+Data	Horas Trabalhadas	Tipo de Tarefa										Descrição da Tarefa Realizada							
+14/08	4			Estudar											Foi estudado a descrição do trabalho e o arcabouco, suas funcionalidades e documentações 
+18/08	2			Estudar, Projetar									Finalização da leitura da documentação, inicio da projeção do trabalho, elaborar quais funções criar equais modificar
+19/08	2			Especificar Modulos, Especificar Funcoes, Codificar Modulo				Especificar os novos modulos/funções e modificar os antigos. Inicio da codificação da criamatriz. 	
+24/08	2			Revisar Projetos, Revisar codigo modulo, Codificar Modulo, realizar testes		Revisar e testar o codigo da criamatriz e iniciar a projeção e codificação da função destroi matriz	
+25/08	2			Revisar codigo modulo, Redigir script de teste, Revisar script de teste,		Revisar e testar o codigo da destroimatriz, redigir teste de srcipts para matriz
+26/08	2			Realizar testes,Codificar Modulo, diagnosticar e corrigir problemas encontrados		Revisar e testar de todos as funções, corrigir problemas encontrados e codificar inserelista.
+28/08   1			Revisar Projetos, diagnosticar e corrigir problemas encontrados				Revisar os scripts de teste e procurar por erros nas funções através dos scripts.
